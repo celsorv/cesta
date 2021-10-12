@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Entrada de Doação de Alimentos</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+    <a href="{% url 'recebimento:direta' %}" class="btn btn-success">Adicionar Não Agendada</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form method="get" style="margin-bottom: 8px">
+
+        <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="field" value="p" checked>Por Produto
+            </label>
+        </div>
+        <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="field" value="d">Por Doador
+            </label>
+        </div>
+        
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Buscar">
+    </form>
+    <div class="p-1 mb-1 bg-info text-white text-center" style="font-size: 1.2rem">
+        Doações Agendadas
+    </div>
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Produto</th>
+                <th scope="col">Doador</th>
+                <th scope="col" style="width: 75px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dbs in db %}
+                <tr>
+                    <td class="align-middle">{{ dbs.produto.descricao }}</td>
+                    <td class="align-middle">{{ dbs.doador.username }}</td>
+                    <td>
+                        <a href="{% url 'recebimento:agendada' dbs.id %}" class="btn btn-sm btn-outline-primary">Receber</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>    
+
+{% endblock %}

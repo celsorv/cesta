@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 align-self-center mt-2">
+    <h3 class="display-4">Muito Obrigado!</h3>
+  </div>
+  <div class="col-12 align-self-center mb-3">
+    <p class="text-justify lead">
+        <h4>Agora você só precisa entregar sua doação na igreja.</h4>
+    </p>
+  </div>
+  <div class="col-12 align-self-center">
+    <p class="text-justify pb-2" style="width: 300px">
+      Para que possamos identificar e registrar sua entrega, <u class="text-danger">anote seu
+      código de usuário na embalagem do produto</u>.
+    </p>
+    <h4 class="pb-5">Seu código: <span class="badge badge-danger">{{ user.username }}</span></h4>
+    <a href="{% url 'doacao:list' %}" class="btn btn-primary btn-lg" style="width: 200px">
+        Ok, entendi!
+    </a>
+</div>
+{% endblock %}

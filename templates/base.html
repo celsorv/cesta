@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+<style>
+    nav a {
+        color: white;
+    }
+    nav a:hover {
+        color: #3813a0e3;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand navbar-info bg-info mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'pages:home' %}">
+                    Matriz São José Operário
+                </a>
+                {% if user.is_authenticated %}
+                    {% if user.administrador %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light">Admin</button>
+                            <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{% url 'doacao:list' %}">Doação de Alimentos</a>
+                            <a class="dropdown-item" href="{% url 'recebimento:list' %}">Recebimento de Doação</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Sair da Aplicação</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'account_logout' %}" class="btn btn-light" style="width: 90px">Sair</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'dashboard:view' %}" class="btn btn-light" style="width: 80px">Admin</a>
+                {% endif %}    
+            </div>
+        </nav>
+    </header>
+    {% if messages %}
+    <div class="container messages">
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="{% static 'js/javascript.js' %}"></script>
+</body>
+</html>
