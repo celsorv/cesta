@@ -1,4 +1,4 @@
-from django.db import transactiona
+from django.db import transaction
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
