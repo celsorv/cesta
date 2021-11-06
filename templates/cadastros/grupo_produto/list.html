@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Grupos de Produtos</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+    <a href="{% url 'cadastros:grupo_produto_create' %}" class="btn btn-success">Adicionar</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form method="get" style="margin-bottom: 8px">
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Buscar">
+    </form>
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col" style="width: 100px">Embalagem</th>
+                <th scope="col" style="width: 60px">Cesta</th>
+                <th scope="col" style="width: 60px">VDias</th>
+                <th scope="col" style="width: 60px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dbs in db %}
+                <tr>
+                    <td class="align-middle">{{ dbs.descricao }}</td>
+                    <td class="align-middle">{{ dbs.qtdeNaEmbalagem }} {{ dbs.unidadeEmbalagem }}</td>
+                    {% if dbs.compoeCesta %}
+                        <td class="align-middle pl-4">{{ dbs.unidadesNaCesta }}</td>
+                    {% else %}
+                        <td class="align-middle pl-3">---</td>
+                    {% endif %}
+                    <td class="align-middle pl-3">{{ dbs.diasValidadeMinima }}</td>
+                    <td scope="col">
+                        <a href="{% url 'cadastros:grupo_produto_edit' dbs.id %}" class="pr-1"><i class="fas fa-edit text-info"></i></a>
+                        <a href="{% url 'cadastros:grupo_produto_delete' dbs.id %}"><i class="fas fa-trash text-danger"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

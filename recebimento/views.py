@@ -35,7 +35,7 @@ class RecebimentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         return DoacaoService.listAll()
 
 
-class RecebimentoCreate(CreateView, LoginRequiredMixin):
+class RecebimentoCreate(LoginRequiredMixin, CreateView):
 
     model = DoacaoRecebida
     form_class = EntradaAgendadaForm
@@ -58,30 +58,19 @@ class RecebimentoCreate(CreateView, LoginRequiredMixin):
             'doador': self.doacaoAgendada.doador
         }
 
+class RecebidosConsulta(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    
+    model = DoacaoRecebida
+    context_object_name = 'db'
+    template_name = 'recebimento/recebimento_produto_list.html'
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+    def get_queryset(self):
+        self.pk = self.kwargs.get('pk')
+        return DoacaoService.listProdutoRecebimentos(self, self.pk)
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
-
-        if self.doacaoAgendada is not None:
-            context['doacaoAgendada'] = self.doacaoAgendada
-            context['produto'] = self.doacaoAgendada.produto
-            context['doador'] = self.doacaoAgendada.doador
-
+        context['grupoProdutoDescricao'] = DoacaoService.getNomeGrupoProduto(self, self.pk)
         return context
-
-
-    def form_valid(self, form):
-
-        with transaction.atomic():
-
-            if self.doacaoAgendada:
-                form.instance.doacaoAgendada = self.doacaoAgendada
-                form.instance.produto = self.doacaoAgendada.produto
-                form.instance.doador = self.doacaoAgendada.doador
-                self.doacaoAgendada.status = 'REC'
-                self.doacaoAgendada.save()
-
-            self.object = form.save()
-
-        return super(RecebimentoCreate, self).form_valid(form)

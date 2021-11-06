@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Agendamntos do Produto</h3>
+  <h6 class="ml-2 text-secondary"><i class="fas fa-angle-double-right mr-1"></i>{{ grupoProdutoDescricao }}</h6>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+    <a href="{% url 'dashboard:view' %}" class="btn btn-info" style="width: 100px">Voltar</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Agendado</th>
+                <th scope="col">Qtde</th>
+                <th scope="col">Doador</th>
+                <th scope="col">Sit</th>
+                <!--
+                <th scope="col" style="width: 30px"></th>
+                -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for dbs in db %}
+                <tr {% if dbs.status == "PER" %}class="text-danger">{% endif %}>
+                    <td class="align-middle">{{ dbs.dataAgendamento|date:"d/m" }}</td>
+                    <td class="align-middle pl-3">{{ dbs.quantidade }}</td>
+                    <td class="align-middle">{{ dbs.doador.username }}</td>
+                    <td class="align-middle">{{ dbs.status }}</td>
+                    <!--
+                    <td>
+                        <a href="#" class="pr-1"><i class="fas fa-eye"></i></a>
+                    </td>
+                    -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>    
+
+{% endblock %}

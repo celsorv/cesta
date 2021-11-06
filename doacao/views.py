@@ -50,3 +50,20 @@ class AgendamentoCreate(LoginRequiredMixin, CreateView):
 
 class AgendamentoOk(LoginRequiredMixin, TemplateView):
     template_name = 'doacao/doacao_ok.html'
+
+
+class AgendadosConsulta(LoginRequiredMixin, ListView):
+    
+    model = DoacaoAgendada
+    context_object_name = 'db'
+    template_name = 'doacao/doacao_produto_list.html'
+    redirect_field_name = '/'
+
+    def get_queryset(self):
+        self.pk = self.kwargs.get('pk')
+        return DoacaoService.listProdutoAgendados(self, self.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['grupoProdutoDescricao'] = DoacaoService.getNomeGrupoProduto(self, self.pk)
+        return context

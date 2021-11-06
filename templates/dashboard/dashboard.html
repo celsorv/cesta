@@ -10,10 +10,10 @@
         <div class="card-body">
           <h5 class="card-title text-primary">Cestas Completas</h5>
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <h2><span class="badge badge-primary">{{ cestasCompletas }}</span></h2>
             </div>
-            <div class="col-6 text-right">
+            <div class="col-8 text-right">
               <a href="{% url 'dashboard:fcesta' %}" class="btn btn-primary">Fechar as Cestas</a>
             </div>
           </div>          
@@ -60,8 +60,16 @@
                     </div>                    
                   </td>
                   <td class="align-middle">
-                    <a href="#"><i class="fas fa-truck text-primary" title="Recebidos"></i></a>
-                    <a href="#" class="ml-1"><i class="fas fa-user-clock text-info" title="Agendados"></i></a>
+                    {% if dbs.agendado != 0 %}
+                      <a href="{% url 'doacao:produto_list' dbs.id %}"><i class="fas fa-user-clock text-info" title="Agendados"></i></a>
+                    {% else %}
+                      <i class="fas fa-user-clock" style="color: silver"></i>
+                    {% endif %}
+                    {% if dbs.recebido != 0 %}
+                      <a href="{% url 'recebimento:produto_list' dbs.id %}"><i class="fas fa-truck text-primary ml-1" title="Recebidos"></i></a>
+                    {% else %}
+                      <i class="fas fa-truck ml-1" style="color: silver"></i>
+                    {% endif %}
                   </td>
               </tr>
           {% endfor %}

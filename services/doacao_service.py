@@ -120,6 +120,27 @@ class DoacaoService():
 
 
 
+    def listProdutoRecebimentos(self, pk):
+        return DoacaoRecebida.objects.get_queryset().filter(
+                Q(dataRecebimento__gte = datetime.now() - timedelta(60),
+                produto__grupoProduto = pk)
+            ).order_by('dataRecebimento')
+
+
+
+    def listProdutoAgendados(self, pk):
+        return DoacaoAgendada.objects.get_queryset().filter(
+                Q(dataAgendamento__gte = DoacaoService.__getDataBaseAgendadas(),
+                produto__grupoProduto = pk)
+            ).order_by('dataAgendamento')
+
+
+
+    def getNomeGrupoProduto(self, pk):
+        dict = GrupoProduto.objects.filter(pk=pk).values('descricao')
+        return dict[0].get('descricao') if len(dict) != 0 else None
+
+
     def itensCestas():
 
         itensCesta = GrupoProduto.objects.filter(

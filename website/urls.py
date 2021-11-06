@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('pages.urls', namespace='pages')),
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
     path('doacao/', include('doacao.urls', namespace='doacao')),
-    path('recebimento/', include('recebimento.urls', namespace='recebimento'))
+    path('recebimento/', include('recebimento.urls', namespace='recebimento')),
+    path('cadastros/', include('cadastros.urls', namespace='cadastros'))
 ]
