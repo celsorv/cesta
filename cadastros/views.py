@@ -26,25 +26,31 @@ class GrupoProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
         return queryset
 
-class GrupoProdutoCreate(LoginRequiredMixin, CreateView):
+class GrupoProdutoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
     model = GrupoProduto
     form_class = GrupoProdutoForm
     template_name = 'cadastros/grupo_produto/form.html'
     success_url = reverse_lazy('cadastros:grupo_produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
-class GrupoProdutoEdit(LoginRequiredMixin, UpdateView):
+class GrupoProdutoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
     model = GrupoProduto
     form_class = GrupoProdutoForm
     template_name = 'cadastros/grupo_produto/form.html'
     success_url = reverse_lazy('cadastros:grupo_produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
-class GrupoProdutoDelete(LoginRequiredMixin, DeleteView):
+class GrupoProdutoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
     model = GrupoProduto
     template_name = 'cadastros/grupo_produto/confirm_delete.html'
     success_url = reverse_lazy('cadastros:grupo_produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
 class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
@@ -53,6 +59,7 @@ class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = 'cadastros/produto/list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'
+
 
     def get_queryset(self):
 
@@ -65,22 +72,28 @@ class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
         return queryset
 
-class ProdutoCreate(LoginRequiredMixin, CreateView):
+class ProdutoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
     model = Produto
     form_class = ProdutoForm
     template_name = 'cadastros/produto/form.html'
     success_url = reverse_lazy('cadastros:produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
-class ProdutoEdit(LoginRequiredMixin, UpdateView):
+class ProdutoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
     model = Produto
     form_class = ProdutoForm
     template_name = 'cadastros/produto/form.html'
     success_url = reverse_lazy('cadastros:produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
-class ProdutoDelete(LoginRequiredMixin, DeleteView):
+class ProdutoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
     model = Produto
     template_name = 'cadastros/produto/confirm_delete.html'
     success_url = reverse_lazy('cadastros:produto_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'

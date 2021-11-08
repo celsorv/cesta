@@ -32,6 +32,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{% url 'dashboard:view' %}">Dashboard</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'doacao:list' %}">Doação de Alimentos</a>
                             <a class="dropdown-item" href="{% url 'recebimento:list' %}">Recebimento de Doação</a>
                             <div class="dropdown-divider"></div>

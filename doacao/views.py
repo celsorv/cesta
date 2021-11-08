@@ -1,6 +1,8 @@
-from django.views.generic import ListView, UpdateView, CreateView, TemplateView
+from django.views.generic import ListView, UpdateView, CreateView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+
+from braces.views import GroupRequiredMixin
 
 from pages.models import DoacaoAgendada 
 from .forms import AgendamentoForm
@@ -14,9 +16,19 @@ class AgendamentoList(LoginRequiredMixin, ListView):
     model = DoacaoAgendada
     context_object_name = 'db'
     template_name = 'doacao/doacao_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
         return DoacaoService.itensCestas()
+
+
+class AgendamentoDetail(GroupRequiredMixin, LoginRequiredMixin, DetailView):
+
+    model = DoacaoAgendada
+    context_object_name = 'db'
+    template_name = 'doacao/doacao_view.html'
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
 
 class AgendamentoCreate(LoginRequiredMixin, CreateView):
@@ -52,11 +64,13 @@ class AgendamentoOk(LoginRequiredMixin, TemplateView):
     template_name = 'doacao/doacao_ok.html'
 
 
-class AgendadosConsulta(LoginRequiredMixin, ListView):
+class AgendadosConsulta(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoAgendada
     context_object_name = 'db'
+    paginate_by = 20
     template_name = 'doacao/doacao_produto_list.html'
+    group_required = 'admin_users'
     redirect_field_name = '/'
 
     def get_queryset(self):
@@ -67,3 +81,4 @@ class AgendadosConsulta(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['grupoProdutoDescricao'] = DoacaoService.getNomeGrupoProduto(self, self.pk)
         return context
+

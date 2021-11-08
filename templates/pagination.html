@@ -1,0 +1,13 @@
+<div class="text-center mb-3 paginacao">
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}"><i class="fas fa-caret-square-left"></i></a>
+    {% else %}
+    <i class="fas fa-caret-square-left text-secondary"></i>
+    {% endif %}
+    Página {{ page.number }}/{{ page.paginator.num_pages }}
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}"><i class="fas fa-caret-square-right"></i></a>
+    {% else %}
+    <i class="fas fa-caret-square-right text-secondary"></i>
+    {% endif %}
+</div>

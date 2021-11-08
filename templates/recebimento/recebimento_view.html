@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Recebimentos do Produto</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+  <a href="{% url 'recebimento:produto_list' db.produto.grupoProduto.id %}" class="btn btn-info" style="width: 100px">Voltar</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+
+  <table class="table table-bordered">
+    <tr class="text-info">
+      <td style="width: 100px"><strong>Produto</strong></td>
+      <td><strong>{{ db.produto.descricao }}</strong></td>
+    </tr>
+    <tr>
+      <td>Quantidade</td>
+      <td><strong>{{ db.quantidade }}</strong></td>
+    </tr>
+    <tr>
+      <td>Validade</td>
+      <td><strong>{{ db.dataValidade|date:"d/m/y" }}</strong></td>
+    </tr>
+    <tr>
+      <td>Entrada</td>
+      <td><strong>{{ db.dataRecebimento|date:"d/m/y" }}</strong></td>
+    </tr>
+    <tr>
+      <td>Doador </td>
+      <td><strong>{{ db.doador.username }}</strong></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><strong>{{ db.get_status_display }}</strong></td>
+    </tr>
+    <tr>
+      <td>Baixa</td>
+      <td><strong>{{ db.dataBaixa|date:"d/m/y" }}</strong></td>
+    </tr>
+    <tr>
+      <td>Via Web?</td>
+      <td><strong>{{ db.doacaoViaWeb|yesno:"Sim,Não" }}</strong></td>
+    </tr>
+    <tr>
+      <td>Saldo?</td>
+      <td><strong>{{ db.saldoDeEntrega|yesno:"Sim,Não" }}</strong></td>
+    </tr>
+  </table>
+
+</div>    
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -17,6 +17,7 @@ class RecebimentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoAgendada
     context_object_name = 'db'
+    paginate_by = 20
     template_name = 'recebimento/recebimento_list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'
@@ -35,7 +36,16 @@ class RecebimentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         return DoacaoService.listAll()
 
 
-class RecebimentoCreate(LoginRequiredMixin, CreateView):
+class RecebimentoDetail(GroupRequiredMixin, LoginRequiredMixin, DetailView):
+
+    model = DoacaoRecebida
+    context_object_name = 'db'
+    template_name = 'recebimento/recebimento_view.html'
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+
+class RecebimentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
     model = DoacaoRecebida
     form_class = EntradaAgendadaForm
@@ -58,10 +68,12 @@ class RecebimentoCreate(LoginRequiredMixin, CreateView):
             'doador': self.doacaoAgendada.doador
         }
 
+
 class RecebidosConsulta(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoRecebida
     context_object_name = 'db'
+    paginate_by = 20
     template_name = 'recebimento/recebimento_produto_list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'

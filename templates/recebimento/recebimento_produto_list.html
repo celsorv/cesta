@@ -20,9 +20,7 @@
                 <th scope="col">Doador</th>
                 <th scope="col">Sit</th>
                 <th scope="col">Baixa</th>
-                <!--
                 <th scope="col" style="width: 30px"></th>
-                -->
             </tr>
         </thead>
         <tbody>
@@ -33,15 +31,16 @@
                     <td class="align-middle">{{ dbs.doador.username }}</td>
                     <td class="align-middle">{{ dbs.status }}</td>
                     <td class="align-middle">{{ dbs.dataBaixa|date:"d/m" }}</td>
-                    <!--
                     <td>
-                        <a href="#" class="pr-1"><i class="fas fa-eye"></i></a>
+                        <a href="{% url 'recebimento:view' dbs.id %}" class="pr-1"><i class="fas fa-eye"></i></a>
                     </td>
-                    -->
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% if is_paginated %}
+    {% include "pagination.html" with page=page_obj %}
+    {% endif %}
 </div>    
 
 {% endblock %}

@@ -30,7 +30,7 @@
                     <td class="align-middle">{{ dbs.descricao }}</td>
                     <td class="align-middle">{{ dbs.grupoProduto.descricao }}</td>
                     <td class="align-middle">{{ dbs.qtdeNaEmbalagem }}</td>
-                    <td class="align-middle pl-2">{% if dbs.aceitaDoacao %}Sim{% else %}Não{% endif %}</td>
+                    <td class="align-middle pl-2">{{ dbs.aceitaDoacao|yesno:"Sim,Não" }}</td>
                     <td scope="col">
                         <a href="{% url 'cadastros:produto_edit' dbs.id %}" class="pr-1"><i class="fas fa-edit text-info"></i></a>
                         <a href="{% url 'cadastros:produto_delete' dbs.id %}"><i class="fas fa-trash text-danger"></i></a>

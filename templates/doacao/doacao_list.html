@@ -37,6 +37,9 @@
           {% endfor %}
       </tbody>
   </table>
+  {% if is_paginated %}
+  {% include "pagination.html" with page=page_obj %}
+  {% endif %}
 </div>    
 
 {% endblock %}

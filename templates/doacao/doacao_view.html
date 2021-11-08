@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Doações do Produto</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+  <a href="{% url 'doacao:produto_list' db.produto.grupoProduto.id %}" class="btn btn-info" style="width: 100px">Voltar</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+
+  <table class="table table-bordered">
+    <tr class="text-info">
+      <td style="width: 100px"><strong>Produto</strong></td>
+      <td><strong>{{ db.produto.descricao }}</strong></td>
+    </tr>
+    <tr>
+      <td>Quantidade</td>
+      <td><strong>{{ db.quantidade }}</strong></td>
+    </tr>
+    <tr>
+      <td>Doador </td>
+      <td><strong>{{ db.doador.username }}</strong></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><strong>{{ db.get_status_display }}</strong></td>
+    </tr>
+    <tr>
+      <td>Agendamento </td>
+      <td><strong>{{ db.dataAgendamento|date:"d/m/y" }}</strong></td>
+    </tr>
+  </table>
+
+</div>    
+
+{% endblock %}
