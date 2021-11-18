@@ -10,6 +10,7 @@ from pages.models import GrupoProduto, Produto
 class GrupoProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
     model = GrupoProduto
+    paginate_by = 10
     context_object_name = 'db'
     template_name = 'cadastros/grupo_produto/list.html'
     group_required = 'admin_users'
@@ -55,6 +56,7 @@ class GrupoProdutoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 class ProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
     model = Produto
+    paginate_by = 10
     context_object_name = 'db'
     template_name = 'cadastros/produto/list.html'
     group_required = 'admin_users'

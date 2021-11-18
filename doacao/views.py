@@ -68,7 +68,7 @@ class AgendadosConsulta(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoAgendada
     context_object_name = 'db'
-    paginate_by = 20
+    paginate_by = 10
     template_name = 'doacao/doacao_produto_list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'

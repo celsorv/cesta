@@ -17,7 +17,7 @@ class RecebimentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoAgendada
     context_object_name = 'db'
-    paginate_by = 20
+    paginate_by = 10
     template_name = 'recebimento/recebimento_list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'
@@ -68,12 +68,22 @@ class RecebimentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
             'doador': self.doacaoAgendada.doador
         }
 
+    @transaction.atomic
+    def form_valid(self, form):
+
+        if self.doacaoAgendada:
+            self.doacaoAgendada.status = 'REC'
+            self.doacaoAgendada.save()
+
+        form.instance.doador = self.request.user
+        return super().form_valid(form)
+
 
 class RecebidosConsulta(GroupRequiredMixin, LoginRequiredMixin, ListView):
     
     model = DoacaoRecebida
     context_object_name = 'db'
-    paginate_by = 20
+    paginate_by = 10
     template_name = 'recebimento/recebimento_produto_list.html'
     group_required = 'admin_users'
     redirect_field_name = '/'
