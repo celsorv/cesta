@@ -5,10 +5,15 @@ from pages.models import UnidadeOrganizacao
 class UnidadeOrganizacaoService():
 
     def getRecord():
-        try:
-            return UnidadeOrganizacao.objects.get(pk=1)
-        except UnidadeOrganizacao.DoesNotExist:
-            print('\n' + '*' * 40)
-            print('*** UNIDADE ORGANIZAÇÃO NÃO DEFINIDA ***')
-            print('*' * 40 + '\n')
-            raise Http404
+
+        obj = None
+
+        orj, created = UnidadeOrganizacao.objects.get_or_create(
+                id = 1,
+                nome = 'Matriz São José Operário',
+                ativo = True,
+                metaQtdeCestas = 10,
+                diasEsperaAgendadas = 10
+        )
+
+        return obj
