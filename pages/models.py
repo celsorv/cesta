@@ -16,13 +16,13 @@ class UnidadeOrganizacao(models.Model):
         db_column='meta_qtde_cestas', 
         default=1, 
         null=False, 
-        verbose_name='Meta Quantidade Cestas',
+        verbose_name='Meta em Quantidade de Cestas',
     )
     diasEsperaAgendadas = models.PositiveSmallIntegerField(
         db_column='dias_espera_agendadas', 
         default=1, 
         null=False, 
-        verbose_name='Agendadas: Dias Espera',
+        verbose_name='Doação Agendada - Dias de Espera',
     )
 
     def __str__(self):

@@ -4,8 +4,17 @@ from django.urls import reverse_lazy
 
 from braces.views import GroupRequiredMixin
 
-from .forms import GrupoProdutoForm, ProdutoForm
-from pages.models import GrupoProduto, Produto
+from .forms import UnidadeOrganizacaoForm, GrupoProdutoForm, ProdutoForm
+from pages.models import UnidadeOrganizacao, GrupoProduto, Produto
+
+class UnidadeOrganizacaoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+
+    model = UnidadeOrganizacao
+    form_class = UnidadeOrganizacaoForm
+    template_name = 'cadastros/unidade_org/form.html'
+    success_url = reverse_lazy('pages:home')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
 
 class GrupoProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 

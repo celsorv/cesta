@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+    <h3>Configurações</h3>
+</div>
+
+<div class="col-12 m-auto pt-4">
+    <form name="form" id="form" action="" method='post'>
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{% url 'pages:home' %}" class="btn btn-danger ml-3">Cancelar</a>
+    </form>
+</div>    
+
+{% endblock %}

@@ -1,6 +1,19 @@
 from django import forms
 
-from pages.models import GrupoProduto, Produto
+from pages.models import UnidadeOrganizacao, GrupoProduto, Produto
+
+class UnidadeOrganizacaoForm(forms.ModelForm):
+
+    class Meta:
+        model = UnidadeOrganizacao
+        fields = (
+            'metaQtdeCestas', 
+            'diasEsperaAgendadas',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(UnidadeOrganizacaoForm, self).__init__(*args, **kwargs)
+        self.fields['metaQtdeCestas'].widget.attrs['autofocus'] = 'autofocus'
 
 class GrupoProdutoForm(forms.ModelForm):
 
