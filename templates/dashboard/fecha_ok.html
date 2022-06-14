@@ -10,10 +10,11 @@
   <div class="col-sm-6 mt-4 mb-5">
     <div class="card bg-light">
       <div class="card-body">
-        <h5 class="card-title text-primary">Cestas Completas</h5>
+        <h4 class="card-title text-primary" 
+          aria-label="{{ cestasCompletas }} cestas completas">Cestas Completas</h4>
         <div class="row">
           <div class="col-6">
-            <h2><span class="badge badge-primary">{{ cestasCompletas }}</span></h2>
+            <div aria-hidden="true" style="font-size: 2rem"><span class="badge badge-primary">{{ cestasCompletas }}</span></div>
           </div>
         </div>          
       </div>
@@ -21,7 +22,7 @@
   </div>
 
   <div class="col-12 align-self-center">
-        <h3>Confirma?</h3>
+        <p style="font-size: 2rem" role="dialog">Confirma?</p>
   </div>
 
   <div class="col-12 align-self-center">
@@ -31,8 +32,9 @@
     </p>
     <form action="{% url 'dashboard:updcesta' %}" method="POST">
       {% csrf_token %}
-      <button type="submit" class="btn btn-success btn-sm">OK</button>
-      <a href="{% url 'dashboard:view' %}" class="btn btn-danger btn-sm" style="width: 100px">
+      <button type="submit" class="btn btn-secondary btn-sm">OK</button>
+      <a href="{% url 'dashboard:view' %}" target="_self"
+        class="btn btn-secondary btn-sm" style="width: 100px" role="button">
         Cancelar
       </a>
   </form>

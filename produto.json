@@ -1,0 +1,12 @@
+[
+{
+    "model": "pages.unidadeorganizacao",
+    "pk": 1,
+    "fields": {
+        "nome": "Matriz São José Operário",
+        "ativo": true,
+        "metaQtdeCestas": 10,
+        "diasEsperaAgendadas": 10
+    }
+}
+]

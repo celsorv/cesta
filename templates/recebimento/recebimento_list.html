@@ -7,26 +7,32 @@
 </div>
 
 <div class="col-12 m-auto pt-2 text-right">
-    <a href="{% url 'recebimento:direta' %}" class="btn btn-success">Adicionar Não Agendada</a>
+    <span class="sr-only" id="btn_nao_agendada" aria-label="Adicionar um recebimento cuja doação não foi agendada" aria-hidden="true"></span>
+    <a href="{% url 'recebimento:direta' %}" class="btn btn-secondary" role="button" aria-labelledby="btn_nao_agendada">Adicionar não Agendada</a>
 </div>
 
 <div class="col-12 m-auto pt-2">
     <form method="get" style="margin-bottom: 8px">
 
-        <div class="form-check-inline">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="field" value="p" checked>Por Produto
-            </label>
-        </div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="field" value="d">Por Doador
-            </label>
-        </div>
-        
-        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Buscar">
+        <fieldset>
+            <div class="form-check-inline">
+                <label class="form-check-label" aria-label="Pesquisar por produto" for="por-produto">
+                    <span class="sr-only" aria-hidden="true">Por Produto</span>
+                    <input type="radio" class="form-check-input" id="por-produto" name="field" value="p" checked>Por Produto
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label" aria-label="Pesquisar por doador" for="por-doador">
+                <span class="sr-only" aria-hidden="true">Por Doador</span>
+                <input type="radio" class="form-check-input" id="por-doador" name="field" value="d">Por Doador
+                </label>
+            </div>
+        </fieldset>
+        <label for="search" class="sr-only" aria-hidden="true">Pesquisar:</label>
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Nome a pesquisar" 
+        aria-label="informe o nome a pesquisar">
     </form>
-    <div class="p-1 mb-1 bg-info text-white text-center" style="font-size: 1.2rem">
+    <div class="p-1 mb-1 bg-secondary text-white text-center" style="font-size: 1.2rem" role="heading">
         Doações Agendadas
     </div>
     <table class="table table-sm">
@@ -34,7 +40,7 @@
             <tr>
                 <th scope="col">Produto</th>
                 <th scope="col">Doador</th>
-                <th scope="col" style="width: 75px"></th>
+                <th scope="col" style="width: 75px" class="text-center">Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +49,10 @@
                     <td class="align-middle">{{ dbs.produto.descricao }}</td>
                     <td class="align-middle">{{ dbs.doador.username }}</td>
                     <td>
-                        <a href="{% url 'recebimento:agendada' dbs.id %}" class="btn btn-sm btn-outline-primary">Receber</a>
+                        <span class="sr-only" id="btn_{{ forloop.counter }}" aria-hidden="true"
+                            aria-label="receber {{ dbs.produto.descricao }} doado por {{ dbs.doador.username }}"></span>
+                        <a href="{% url 'recebimento:agendada' dbs.id %}" class="btn btn-sm btn-secondary" role="button"
+                            aria-labelledby="btn_{{ forloop.counter }}">Receber</a>
                     </td>
                 </tr>
             {% endfor %}

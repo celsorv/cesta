@@ -224,7 +224,6 @@ class DoacaoService():
         return datetime.now().date() - timedelta(DoacaoRecebida.DIAS_INICIO_PERIODO)
 
 
-
     def __getQtdeCestasCompletas():
         return DoacaoRecebida.objects.annotate(
                 diasValidade = ExpressionWrapper(

@@ -12,12 +12,13 @@
         {% csrf_token %}
         <div class="form-row">
             <div class="alert alert-warning mt-5">
-                Você deseja mesmo excluir {{ object }}?
+                <span role="dialog" aria-label="Você deseja mesmo excluir {{ object }}?">
+                    Você deseja mesmo excluir {{ object }}?</span>
             </div>
         </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-success">Sim</button>
-            <a href="{% url 'cadastros:grupo_produto_list' %}" class="btn btn-danger ml-3">Não</a>
+            <a href="{% url 'cadastros:grupo_produto_list' %}" class="btn btn-danger ml-3" role="button">Não</a>
         </div>
     </form>
 </div>    

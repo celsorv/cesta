@@ -162,7 +162,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -184,4 +184,4 @@ LOGGING = {
     #    },
     #},
 }
-
+"""

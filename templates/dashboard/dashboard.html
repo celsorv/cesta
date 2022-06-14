@@ -5,29 +5,31 @@
 <div class="col-12 m-auto pt-4">
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6" role="contentinfo">
       <div class="card bg-light mb-3">
         <div class="card-body">
-          <h5 class="card-title text-primary">Cestas Completas</h5>
+          <h5 class="card-title text-primary" 
+            aria-label="{{ cestasCompletas }} cestas completas, baseado nas doações recebidas">Cestas Completas</h5>
           <div class="row">
-            <div class="col-4">
-              <h2><span class="badge badge-primary">{{ cestasCompletas }}</span></h2>
+            <div class="col-4" aria-hidden="true">
+              <div style="font-size: 2rem"><span class="badge badge-primary">{{ cestasCompletas }}</span></div>
             </div>
             <div class="col-8 text-right">
-              <a href="{% url 'dashboard:fcesta' %}" class="btn btn-primary">Fechar as Cestas</a>
+              <a href="{% url 'dashboard:fcesta' %}" class="btn btn-secondary" role="button" target="_self">Fechar as Cestas</a>
             </div>
           </div>          
         </div>
-        <div class="card-footer text-primary">Baseado nas doações recebidas</div>
+        <div class="card-footer text-dark" aria-hidden="true" style="font-size: 1.1rem">Baseado nas doações recebidas</div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" role="contentinfo">
       <div class="card bg-light mb-3">
         <div class="card-body">
-          <h5 class="card-title text-info">Cestas Agendadas</h5>
-          <h2><span class="badge badge-info">{{ cestasAgendadas }}</span></h2>
+          <h5 class="card-title text-info"
+            aria-label="{{ cestasAgendadas }} cestas agendadas, baseado nas doações agendadas">Cestas Agendadas</h5>
+          <div aria-hidden="true" style="font-size: 2rem"><span class="badge badge-info">{{ cestasAgendadas }}</span></div>
         </div>
-        <div class="card-footer text-info">Baseado nas doações agendadas</div>
+        <div class="card-footer text-dark" aria-hidden="true" style="font-size: 1.1rem">Baseado nas doações agendadas</div>
       </div>
     </div>
   </div>
@@ -38,8 +40,8 @@
               <th scope="col">Descrição</th>
               <th scope="col" style="width: 35px">Age</th>
               <th scope="col" style="width: 35px">Rec</th>
-              <th scope="col" class="text-center" style="width: 60px">Meta</th>
-              <th scope="col" style="width: 60px"></th>
+              <th scope="col" style="width: 60px" class="text-center">Meta</th>
+              <th scope="col" style="width: 60px" class="text-center">Ação</th>
           </tr>
       </thead>
       <tbody>
@@ -51,29 +53,33 @@
                   <td class="align-middle">
                     <div class="progress">
                         {% if dbs.percentual < 100 %}
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ dbs.percentual }}%" 
-                                    aria-valuenow="{{ dbs.percentual }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <span class="sr-only" aria-label="{{ dbs.percentual }}% de {{ dbs.descricao }}"></span>
+                            <div class="progress-bar bg-warning" style="width: {{ dbs.percentual }}%"></div>
                         {% else %}
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%" 
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" style="width: 100%"></div>
                         {% endif %}
-                    </div>                    
+                    </div>
                   </td>
                   <td class="align-middle">
                     {% if dbs.agendado != 0 %}
-                      <a href="{% url 'doacao:produto_list' dbs.id %}"><i class="fas fa-user-clock text-info" title="Agendados"></i></a>
+                      <a href="{% url 'doacao:produto_list' dbs.id %}" target="_self"
+                        title="consultar doações de {{ dbs.descricao }}" role="button">
+                        <em class="fas fa-user-clock text-info"></em></a>
                     {% else %}
-                      <i class="fas fa-user-clock" style="color: silver"></i>
+                      <em class="fas fa-user-clock" style="color: silver"></em>
                     {% endif %}
                     {% if dbs.recebido != 0 %}
-                      <a href="{% url 'recebimento:produto_list' dbs.id %}"><i class="fas fa-truck text-primary ml-1" title="Recebidos"></i></a>
+                      <a href="{% url 'recebimento:produto_list' dbs.id %}" target="_self"
+                        title="consultar recebimentos de {{ dbs.descricao }}" role="button">
+                        <em class="fas fa-truck text-primary ml-1"></em></a>
                     {% else %}
-                      <i class="fas fa-truck ml-1" style="color: silver"></i>
+                      <em class="fas fa-truck ml-1" style="color: silver"></em>
                     {% endif %}
                   </td>
               </tr>
           {% endfor %}
       </tbody>
+      <caption class="text-center">Coluna "Age" = doações agendadas &nbsp;&nbsp;::&nbsp;&nbsp; Coluna "Rec" = doações recebidas</caption>
   </table>
 </div>    
 

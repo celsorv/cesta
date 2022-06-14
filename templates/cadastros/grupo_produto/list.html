@@ -7,12 +7,15 @@
 </div>
 
 <div class="col-12 m-auto pt-2 text-right">
-    <a href="{% url 'cadastros:grupo_produto_create' %}" class="btn btn-success">Adicionar</a>
+    <a href="{% url 'cadastros:grupo_produto_create' %}" class="btn btn-secondary" target="_self"
+        role="button">Adicionar Grupo</a>
 </div>
 
 <div class="col-12 m-auto pt-2">
     <form method="get" style="margin-bottom: 8px">
-        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Buscar">
+        <label for="search" class="sr-only" aria-hidden="true">Pesquisar:</label>
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Nome a pesquisar" 
+            aria-label="informe o nome do grupo a pesquisar">
     </form>
     <table class="table table-sm">
         <thead class="thead-light">
@@ -21,7 +24,7 @@
                 <th scope="col" style="width: 100px">Embalagem</th>
                 <th scope="col" style="width: 60px">Cesta</th>
                 <th scope="col" style="width: 60px">VDias</th>
-                <th scope="col" style="width: 60px"></th>
+                <th scope="col" style="width: 60px" class="text-center">Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -36,8 +39,10 @@
                     {% endif %}
                     <td class="align-middle pl-3">{{ dbs.diasValidadeMinima }}</td>
                     <td scope="col">
-                        <a href="{% url 'cadastros:grupo_produto_edit' dbs.id %}" class="pr-1"><i class="fas fa-edit text-info"></i></a>
-                        <a href="{% url 'cadastros:grupo_produto_delete' dbs.id %}"><i class="fas fa-trash text-danger"></i></a>
+                        <a href="{% url 'cadastros:grupo_produto_edit' dbs.id %}" class="pr-1" target="_self"
+                            title="editar {{ dbs.descricao }}" role="button"><em class="fas fa-edit text-info"></em></a>
+                        <a href="{% url 'cadastros:grupo_produto_delete' dbs.id %}" target="_self"
+                            title="excluir {{ dbs.descricao }}" role="button"><em class="fas fa-trash text-danger"></em></a>
                     </td>
                 </tr>
             {% endfor %}

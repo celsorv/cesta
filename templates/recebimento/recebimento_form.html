@@ -12,8 +12,9 @@
         {% csrf_token %}
         {{ form|crispy }}
 
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'recebimento:list' %}" class="btn btn-danger ml-3">Cancelar</a>
+        <button type="submit" class="btn btn-secondary">Salvar</button>
+        <a href="{% url 'recebimento:list' %}" target="_self"
+          class="btn btn-secondary ml-3">Cancelar</a>
     </form>
 </div>    
 

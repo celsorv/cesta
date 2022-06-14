@@ -8,14 +8,15 @@
 </div>
 
 <div class="col-12 m-auto pt-2 text-right">
-  <a href="{% url 'recebimento:produto_list' db.produto.grupoProduto.id %}" class="btn btn-info" style="width: 100px">Voltar</a>
+  <a href="{% url 'recebimento:produto_list' db.produto.grupoProduto.id %}" target="_self"
+    class="btn btn-secondary" style="width: 100px" role="button">Voltar</a>
 </div>
 
 <div class="col-12 m-auto pt-2">
 
   <table class="table table-bordered">
-    <tr class="text-info">
-      <td style="width: 100px"><strong>Produto</strong></td>
+    <tr>
+      <td style="width: 100px">Produto</td>
       <td><strong>{{ db.produto.descricao }}</strong></td>
     </tr>
     <tr>
