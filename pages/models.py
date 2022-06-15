@@ -12,12 +12,6 @@ class UnidadeOrganizacao(models.Model):
     ativo = models.BooleanField(
         default=True,
     )
-    metaQtdeCestas = models.PositiveSmallIntegerField(
-        db_column='meta_qtde_cestas', 
-        default=1, 
-        null=False, 
-        verbose_name='Meta em Quantidade de Cestas',
-    )
     diasEsperaAgendadas = models.PositiveSmallIntegerField(
         db_column='dias_espera_agendadas', 
         default=1, 

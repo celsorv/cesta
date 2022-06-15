@@ -5,13 +5,14 @@ from datetime import datetime, timedelta
 
 from pages.models import GrupoProduto, Produto, DoacaoAgendada, DoacaoRecebida
 from .unidadeorg_service import UnidadeOrganizacaoService as orgService
+from .familia_atendida_service import FamiliaAtendidaService
 
 class DoacaoService():
 
-    ORG = orgService.getRecord()
-
     @transaction.atomic
     def fecharCestas():
+
+        ORG = orgService.getRecord()
 
         cestasCompletas = DoacaoService.__getQtdeCestasCompletas()
         if cestasCompletas is None: return
@@ -143,10 +144,13 @@ class DoacaoService():
 
     def itensCestas():
 
+        ORG = orgService.getRecord()
+        meta_cestas = FamiliaAtendidaService.getMetaCestas()
+
         itensCesta = GrupoProduto.objects.filter(
                 compoeCesta = True
             ).annotate(
-                esperado = F('qtdeNaEmbalagem') * F('unidadesNaCesta') * DoacaoService.ORG.metaQtdeCestas, 
+                esperado = F('qtdeNaEmbalagem') * F('unidadesNaCesta') * meta_cestas, 
                 qtdeEmbalagem = F('qtdeNaEmbalagem'),
                 unidNaCesta = F('unidadesNaCesta'),
                 agendado = Value(0),
@@ -216,7 +220,8 @@ class DoacaoService():
 
 
     def __getDataBaseAgendadas():
-        return datetime.now().date() - timedelta(DoacaoService.ORG.diasEsperaAgendadas)
+        ORG = orgService.getRecord()
+        return datetime.now().date() - timedelta(ORG.diasEsperaAgendadas)
 
 
 

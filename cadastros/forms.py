@@ -7,14 +7,12 @@ class UnidadeOrganizacaoForm(forms.ModelForm):
     class Meta:
         model = UnidadeOrganizacao
         fields = (
-            'metaQtdeCestas', 
             'diasEsperaAgendadas',
         )
 
     def __init__(self, *args, **kwargs):
         super(UnidadeOrganizacaoForm, self).__init__(*args, **kwargs)
-        self.fields['metaQtdeCestas'].widget.attrs['autofocus'] = 'autofocus'
-        self.fields['metaQtdeCestas'].widget.attrs['aria-label'] = 'Informe a meta em quantidade de cestas'
+        self.fields['diasEsperaAgendadas'].widget.attrs['autofocus'] = 'autofocus'
         self.fields['diasEsperaAgendadas'].widget.attrs['aria-label'] = 'Informe quantos dias esperar pela entrega de uma doação agendada'
 
 class FamiliaAtendidaForm(forms.ModelForm):
@@ -34,7 +32,6 @@ class FamiliaAtendidaForm(forms.ModelForm):
         widgets = {
             'observacoes': forms.Textarea(),
         }
-    #observacoes = forms.CharField(required=False, widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
         super(FamiliaAtendidaForm, self).__init__(*args, **kwargs)

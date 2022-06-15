@@ -5,13 +5,16 @@ from pages.models import UnidadeOrganizacao
 class UnidadeOrganizacaoService():
 
     def getRecord():
-
-        obj, created = UnidadeOrganizacao.objects.get_or_create(
+        
+        try:
+            obj = UnidadeOrganizacao.objects.get(pk=1)
+        except UnidadeOrganizacao.DoesNotExist:
+            obj = UnidadeOrganizacao(
                 id = 1,
                 nome = 'Matriz São José Operário',
                 ativo = True,
-                metaQtdeCestas = 10,
                 diasEsperaAgendadas = 10
-        )
+            )
+            obj.save()
 
         return obj
