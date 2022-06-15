@@ -28,6 +28,74 @@ class UnidadeOrganizacao(models.Model):
     def __str__(self):
         return self.nome
 
+class FamiliaAtendida(models.Model):
+
+    unidadeOrganizacao = models.ForeignKey(
+        UnidadeOrganizacao, 
+        on_delete=models.PROTECT, 
+        db_column='unidade_org_id', 
+        default=1,
+        verbose_name='Unidade Organização',
+    )
+    nome = models.CharField(
+        max_length=50,
+    )
+    ativo = models.BooleanField(
+        default=True,
+        verbose_name='Família Ativa?'
+    )
+    qtdeCestas = models.PositiveSmallIntegerField(
+        db_column='qtde_cestas',
+        default=1,
+        null=False,
+        verbose_name="Quantidade Cestas",
+        help_text='Informe a quantidade de cestas necessárias',
+    )
+    logradouro = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        default='',
+        verbose_name='Logradouro',
+        help_text='Informe o logradouro e número do endereço',
+    )
+    complemento = models.CharField(
+        max_length=30,
+        default='',
+        blank=True,
+        null=True,
+        verbose_name='Complemento',
+        help_text='Informe o complemento do endereço',
+    )
+    bairro = models.CharField(
+        max_length=30,
+        default='',
+        blank=True,
+        null=True,
+        verbose_name='Bairro',
+        help_text='Informe o bairro do endereço',
+    )
+    telefone = models.CharField(
+        max_length=50,
+        default='',
+        blank=True,
+        null=True,
+        verbose_name='Telefone',
+        help_text='Informe os telefones de contato',
+    )
+    observacoes = models.CharField(
+        max_length=255,
+        default='',
+        blank=True,
+        null=True,
+        verbose_name='Observações',
+        help_text='Informe observações importantes',
+    )
+    
+    def __str__(self):
+        return self.nome
+
+
 class GrupoProduto(models.Model):
 
     UNIDADE_CHOICES = (
@@ -80,7 +148,8 @@ class GrupoProduto(models.Model):
     )
     compoeCesta = models.BooleanField(
         db_column='compoe_cesta', 
-        default=True, verbose_name='Item Compõe a Cesta?',
+        default=True, 
+        verbose_name='Item Compõe a Cesta?',
     )
     diasValidadeMinima = models.PositiveSmallIntegerField(
         db_column='dias_validade_minima',

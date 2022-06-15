@@ -1,13 +1,11 @@
 from datetime import date, timedelta
-from unittest import skip
 from django.test import TestCase
 from django.urls import reverse
 from doacao.forms import AgendamentoForm
-from pages.models import DoacaoAgendada, DoacaoRecebida, Produto, UnidadeOrganizacao
+from pages.models import DoacaoAgendada, DoacaoRecebida, Produto
 from recebimento.forms import EntradaAgendadaForm
 from users.models import User
 
-@skip('salta')
 class DoacaoAgendadaCreateViewTest(TestCase):
 
   fixtures = ['data.json']  # insere dados no banco de dados de testes
@@ -46,7 +44,7 @@ class DoacaoAgendadaCreateViewTest(TestCase):
     response = self.client.post(reverse('doacao:doar', args=(self.doacao_id, )), self.data_post)
     self.assertRedirects(response, reverse('doacao:doacao_ok'))
 
-@skip('salta')
+
 class DoacaoDiretaRecebidaCreateViewTest(TestCase):
 
   fixtures = ['data.json']  # insere dados no banco de dados de testes
@@ -94,7 +92,7 @@ class DoacaoDiretaRecebidaCreateViewTest(TestCase):
       'dataValidade': date.today() + timedelta(days=15)
     }
 
-@skip('salta')
+
 class DoacaoAgendadaRecebidaCreateViewTest(TestCase):
 
   fixtures = ['data.json']  # insere dados no banco de dados de testes
@@ -139,7 +137,6 @@ class DoacaoAgendadaRecebidaCreateViewTest(TestCase):
     self.__create_doacao_agendada()
     data_post = self.__create_data_post()
     response = self.client.post(reverse('recebimento:agendada', args=(self.doacao_id, )), data=data_post)
-    print(response['content-type'])
     self.assertRedirects(response, reverse('recebimento:list'))
 
   def __create_data_post(self):

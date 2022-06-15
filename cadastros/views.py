@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 
 from braces.views import GroupRequiredMixin
 
-from .forms import UnidadeOrganizacaoForm, GrupoProdutoForm, ProdutoForm
-from pages.models import UnidadeOrganizacao, GrupoProduto, Produto
+from .forms import FamiliaAtendidaForm, UnidadeOrganizacaoForm, GrupoProdutoForm, ProdutoForm
+from pages.models import FamiliaAtendida, UnidadeOrganizacao, GrupoProduto, Produto
 
 class UnidadeOrganizacaoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
@@ -13,6 +13,52 @@ class UnidadeOrganizacaoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView)
     form_class = UnidadeOrganizacaoForm
     template_name = 'cadastros/unidade_org/form.html'
     success_url = reverse_lazy('pages:home')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+class FamiliaAtendidaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+
+    model = FamiliaAtendida
+    paginate_by = 10
+    context_object_name = 'db'
+    template_name = 'cadastros/familia_atendida/list.html'
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+    def get_queryset(self):
+
+        search = self.request.GET.get('search')
+
+        queryset = FamiliaAtendida.objects.order_by('nome')
+
+        if search:
+            queryset = queryset.filter(nome__istartswith=search)
+
+        return queryset
+
+class FamiliaAtendidaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+
+    model = FamiliaAtendida
+    form_class = FamiliaAtendidaForm
+    template_name = 'cadastros/familia_atendida/form.html'
+    success_url = reverse_lazy('cadastros:familia_atendida_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+class FamiliaAtendidaEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+
+    model = FamiliaAtendida
+    form_class = FamiliaAtendidaForm
+    template_name = 'cadastros/familia_atendida/form.html'
+    success_url = reverse_lazy('cadastros:familia_atendida_list')
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+class FamiliaAtendidaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+
+    model = FamiliaAtendida
+    template_name = 'cadastros/familia_atendida/confirm_delete.html'
+    success_url = reverse_lazy('cadastros:familia_atendida_list')
     group_required = 'admin_users'
     redirect_field_name = '/'
 
