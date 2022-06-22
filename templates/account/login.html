@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
@@ -13,6 +14,22 @@
         <button class="btn btn-secondary" type="submit">Entrar</button>
     </form>
 {% endblock %}
+=======
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Entrar{% endblock %}
+
+{% block content %}
+    <h2>Entrar</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-secondary" type="submit">Entrar</button>
+    </form>
+{% endblock %}
+>>>>>>> dd3c65b3f344b1b29586be09274a537ec8b284d3
 =======
 {% extends 'base.html' %}
 
