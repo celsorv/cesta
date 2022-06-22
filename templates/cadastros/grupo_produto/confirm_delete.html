@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
@@ -11,16 +12,46 @@
     <form name="form" id="form" action="" method='post'>
         {% csrf_token %}
         <div class="form-row">
-            <div class="alert alert-warning mt-5">
+            <div class="alert alert-secondary mt-5">
                 <span role="dialog" aria-label="Você deseja mesmo excluir {{ object }}?">
                     Você deseja mesmo excluir {{ object }}?</span>
             </div>
         </div>
         <div class="mt-3">
-            <button type="submit" class="btn btn-success">Sim</button>
-            <a href="{% url 'cadastros:grupo_produto_list' %}" class="btn btn-danger ml-3" role="button">Não</a>
+            <button type="submit" class="btn btn-secondary">Sim</button>
+            <a href="{% url 'cadastros:grupo_produto_list' %}" 
+                class="btn btn-secondary ml-3" role="button" target="_self">Não</a>
         </div>
     </form>
 </div>    
 
 {% endblock %}
+=======
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+    <h3>Grupos de Produtos</h3>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form name="form" id="form" action="" method='post'>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="alert alert-secondary mt-5">
+                <span role="dialog" aria-label="Você deseja mesmo excluir {{ object }}?">
+                    Você deseja mesmo excluir {{ object }}?</span>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-secondary">Sim</button>
+            <a href="{% url 'cadastros:grupo_produto_list' %}" 
+                class="btn btn-secondary ml-3" role="button" target="_self">Não</a>
+        </div>
+    </form>
+</div>    
+
+{% endblock %}
+>>>>>>> dd3c65b3f344b1b29586be09274a537ec8b284d3
