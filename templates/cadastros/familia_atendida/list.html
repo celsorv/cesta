@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% block content %}
@@ -52,3 +54,115 @@
 </div>
 
 {% endblock %}
+=======
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Famílias Atendidas</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+    <a href="{% url 'cadastros:familia_atendida_create' %}" class="btn btn-secondary" target="_self"
+        role="button">Adicionar Família</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form method="get" style="margin-bottom: 8px">
+        <label for="search" class="sr-only" aria-hidden="true">Pesquisar:</label>
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Nome a pesquisar" 
+            aria-label="informe o nome da família a pesquisar">
+    </form>
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col" style="width: 60px">Cestas</th>
+                <th scope="col" style="width: 60px">Ativo</th>
+                <th scope="col" style="width: 60px" class="text-center">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dbs in db %}
+                <tr>
+                    <td class="align-middle">{{ dbs.nome }}</td>
+                    {% if dbs.ativo %}
+                        <td class="align-middle pl-4">{{ dbs.qtdeCestas }}</td>
+                    {% else %}
+                        <td class="align-middle pl-3">---</td>
+                    {% endif %}
+                    <td class="align-middle pl-3">{{ dbs.ativo|yesno:"Sim,Não" }}</td>
+                    <td scope="col">
+                        <a href="{% url 'cadastros:familia_atendida_edit' dbs.id %}" class="pr-1" target="_self"
+                            title="editar {{ dbs.nome }}" role="button"><em class="fas fa-edit text-info"></em></a>
+                        <a href="{% url 'cadastros:familia_atendida_delete' dbs.id %}" target="_self"
+                            title="excluir {{ dbs.nome }}" role="button"><em class="fas fa-trash text-danger"></em></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+    {% include "pagination.html" with page=page_obj %}
+    {% endif %}
+</div>
+
+{% endblock %}
+>>>>>>> dd3c65b3f344b1b29586be09274a537ec8b284d3
+=======
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+  <h3>Famílias Atendidas</h3>
+</div>
+
+<div class="col-12 m-auto pt-2 text-right">
+    <a href="{% url 'cadastros:familia_atendida_create' %}" class="btn btn-secondary" target="_self"
+        role="button">Adicionar Família</a>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form method="get" style="margin-bottom: 8px">
+        <label for="search" class="sr-only" aria-hidden="true">Pesquisar:</label>
+        <input type="text" id="search" name="search" class="form-control mt-1" placeholder="Nome a pesquisar" 
+            aria-label="informe o nome da família a pesquisar">
+    </form>
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col" style="width: 60px">Cestas</th>
+                <th scope="col" style="width: 60px">Ativo</th>
+                <th scope="col" style="width: 60px" class="text-center">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dbs in db %}
+                <tr>
+                    <td class="align-middle">{{ dbs.nome }}</td>
+                    {% if dbs.ativo %}
+                        <td class="align-middle pl-4">{{ dbs.qtdeCestas }}</td>
+                    {% else %}
+                        <td class="align-middle pl-3">---</td>
+                    {% endif %}
+                    <td class="align-middle pl-3">{{ dbs.ativo|yesno:"Sim,Não" }}</td>
+                    <td scope="col">
+                        <a href="{% url 'cadastros:familia_atendida_edit' dbs.id %}" class="pr-1" target="_self"
+                            title="editar {{ dbs.nome }}" role="button"><em class="fas fa-edit text-info"></em></a>
+                        <a href="{% url 'cadastros:familia_atendida_delete' dbs.id %}" target="_self"
+                            title="excluir {{ dbs.nome }}" role="button"><em class="fas fa-trash text-danger"></em></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+    {% include "pagination.html" with page=page_obj %}
+    {% endif %}
+</div>
+
+{% endblock %}
+>>>>>>> dd3c65b3f344b1b29586be09274a537ec8b284d3
