@@ -139,3 +139,5 @@ cython_debug/
 
 # VS Code
 .vscode/
+*.doc
+*.docx
