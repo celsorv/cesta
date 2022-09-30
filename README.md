@@ -1,5 +1,8 @@
 # Sistema web para organizar as doações de alimentos em uma igreja
 
+
+<br>
+
 ## **Instalação e Setup**
 
 ### Rodando com docker
@@ -12,9 +15,6 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
 ```
-
-<br>
-<hr>
 
 
 ## __UNIVESP__
