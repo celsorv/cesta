@@ -5,7 +5,6 @@
         "fields": {
             "nome": "Igreja",
             "ativo": true,
-            "metaQtdeCestas": 10,
             "diasEsperaAgendadas": 10
         }
     },
@@ -31,6 +30,27 @@
             "grupoProduto": 1,
             "qtdeNaEmbalagem": "5.000",
             "aceitaDoacao": true
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 100,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$0WBT7ejFijUAPThiZPFxBC$aYcQmXyf/JR8UKJTFck/f6GmaZlCdIqu2dgoJ6ukoDA=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@admin.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-06-13T03:38:39Z",
+            "administrador": true,
+            "groups": [
+                101
+            ],
+            "user_permissions": []
         }
     },
     {

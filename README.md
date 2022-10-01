@@ -16,6 +16,11 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
 ```
 
+O website ficara aberto em localhost:8000
+
+Para logar como admin, usar as credenciais:
+admin@admin.com
+admin12345
 
 ## __UNIVESP__
 Universidade Virtual do Estado de São Paulo

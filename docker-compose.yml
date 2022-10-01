@@ -10,6 +10,10 @@ services:
     extends:
       service: web
     command: python manage.py migrate
+  web_create_adm:
+    extends:
+      service: web
+    command: python manage.py loaddata data.json
   web_run:
     extends:
       service: web
