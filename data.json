@@ -164,7 +164,7 @@
         "fields": {
             "unidadeOrganizacao": 1,
             "descricao": "Sal Refinado",
-            "unidadeEmbalagem": "L",
+            "unidadeEmbalagem": "KG",
             "unidadesNaCesta": 1.8,
             "compoeCesta": true,
             "diasValidadeMinima": 10
