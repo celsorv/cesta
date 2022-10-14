@@ -25,6 +25,14 @@ admin@admin.com
 admin12345
 ```
 
+Para popular o banco com dados fake para testes, é possivel utilizar o comando (recomendado uso de venv):
+```
+python manage.py populate_database
+```
+
+O mesmo irá criar uma quantidade aleatória(entre 50 a 1500) de registros para usuários(doadores), doações agendadas e doações recebidas
+
+
 ## __UNIVESP__
 Universidade Virtual do Estado de São Paulo
 
@@ -36,5 +44,5 @@ Universidade Virtual do Estado de São Paulo
 
 
 
-TODO:
-- ZeroDivisionError/DivisionUndefined -> apos finalizar uma doacao, a pagina quebra
+#### TODO:
+- ZeroDivisionError/DivisionUndefined -> após finalizar uma doacao, a pagina esta quebrando
