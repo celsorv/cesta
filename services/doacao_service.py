@@ -150,6 +150,7 @@ class DoacaoService():
         itensCesta = GrupoProduto.objects.filter(
                 compoeCesta = True
             ).annotate(
+                grupo_id = F('produto'),
                 esperado = F('qtdeNaEmbalagem') * F('unidadesNaCesta') * meta_cestas, 
                 qtdeEmbalagem = F('qtdeNaEmbalagem'),
                 unidNaCesta = F('unidadesNaCesta'),
