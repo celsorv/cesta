@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   web:
     build: .
@@ -14,6 +14,10 @@ services:
     extends:
       service: web
     command: python manage.py loaddata data.json
+  web_populate_databse:
+    extends:
+      service: web
+    command: python manage.py populate_databse
   web_run:
     extends:
       service: web
