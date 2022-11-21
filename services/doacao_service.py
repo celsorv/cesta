@@ -150,7 +150,7 @@ class DoacaoService():
         itensCesta = GrupoProduto.objects.filter(
                 compoeCesta = True
             ).annotate(
-                grupo_id = F('produto'),
+                grupo_id = F('pk'),
                 esperado = F('qtdeNaEmbalagem') * F('unidadesNaCesta') * meta_cestas, 
                 qtdeEmbalagem = F('qtdeNaEmbalagem'),
                 unidNaCesta = F('unidadesNaCesta'),
@@ -196,7 +196,8 @@ class DoacaoService():
                     else:
                         cesta.recebido += doado.get('soma') / cesta.qtdeEmbalagem
 
-                cesta.percentual = int((cesta.agendado + cesta.recebido) * cesta.qtdeEmbalagem / cesta.esperado * 100)
+                percentual_doado = int((cesta.agendado + cesta.recebido) * cesta.qtdeEmbalagem / cesta.esperado * 100)
+                cesta.percentual = min(percentual_doado, 100)
 
         return itensCesta
 
