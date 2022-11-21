@@ -1,4 +1,4 @@
-from django.views.generic import ListView, UpdateView, CreateView, DetailView, TemplateView
+from django.views.generic import ListView, CreateView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
