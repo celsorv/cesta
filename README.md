@@ -7,7 +7,7 @@
 
 ### Rodando com docker
 ```
-docker-compose up -d
+docker-compose up --build -d
 ```
 ### Rodando sem docker (é recomendado o uso de uma venv)
 ```
