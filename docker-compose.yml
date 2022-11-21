@@ -17,7 +17,7 @@ services:
   web_populate_databse:
     extends:
       service: web
-    command: python manage.py populate_databse
+    command: python manage.py populate_database
   web_run:
     extends:
       service: web
