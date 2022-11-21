@@ -33,7 +33,7 @@ python manage.py populate_database
 O mesmo irá criar uma quantidade aleatória(entre 50 a 1500) de registros para usuários(doadores), doações agendadas e doações recebidas
 
 
-O gráfico fica disponivel na url: "./produtos_grafico"
+O gráfico fica disponivel na url: "./produtos_grafico/"
 
 ## __UNIVESP__
 Universidade Virtual do Estado de São Paulo
