@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+    <h3>Questionário Socioeconômico</h3>
+    <h5>{{ db.familia }}</h5>
+</div>
+
+<div class="col-12 m-auto pt-2">
+    <form name="form" id="form" action="" method='post'>
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="pt-2">
+            {{ field|as_crispy_field }}
+        </div>
+        {% endfor %}
+
+        <div class="pt-3 pb-3">
+            <button type="submit" class="btn btn-secondary">Salvar</button>
+            <a href="{% url 'cadastros:familia_atendida_list' %}" target="_self"
+                class="btn btn-secondary ml-3" role="button">Cancelar</a>
+        </div>
+    </form>
+</div>    
+
+{% endblock %}

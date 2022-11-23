@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import date
@@ -88,6 +90,182 @@ class FamiliaAtendida(models.Model):
     
     def __str__(self):
         return self.nome
+
+class FamiliaQuestionario(models.Model):
+
+    TIPO_MORADIA = (
+        ('QUITAD', 'Própria Quitada'),
+        ('FINANC', 'Própria Financiada'),
+        ('ALUGAD', 'Alugada'),
+        ('CEDIDA', 'Cedida'),
+    )
+
+    RENDA_BRUTA_FAMILIAR = (
+        ('MENOS1', 'Até um salário mínimo'),
+        ('EXATO1', 'Um salário mínimo'),
+        ('EXATO2', 'Dois salários mínimos'),
+        ('EXATO3', 'Três salários mínimos'),
+        ('ACIMA3', 'Acima de três salários mínimos'),
+    )
+
+    GRAU_ESCOLARIDADE = (
+        ('FUN_IN', 'Fundamental Incompleto'),
+        ('FUN_CP', 'Fundamental Completo'),
+        ('MED_IN', 'Médio Incompleto'),
+        ('MED_CP', 'Médio Completo'),
+        ('SUP_IN', 'Superior Incompleto'),
+        ('SUP_CP', 'Superior Completo'),
+    )
+
+    RELIGIAO = (
+        ('NENHUM', 'Nenhuma'),
+        ('CATOLI', 'Católica'),
+        ('EVANGE', 'Evangélica'),
+        ('TJEOVA', 'Testemunhas Jeová'),
+        ('ESPIRI', 'Espírita'),
+        ('OUTROS', 'Outras'),
+    )
+
+    TIPO_VIOLENCIA = (
+        ('ASSALT', 'Assaltos'),
+        ('DROGAS', 'Tráfico/Uso Drogas'),
+        ('PROSTI', 'Prostituição'),
+        ('OUTROS', 'Outros'),
+    )
+
+    CRIANCAS_NA_ESCOLA = (
+        ('NAOHA', 'Não há crianças'),
+        ('SIM', 'Sim'),
+        ('NAO', 'Não'),
+    )
+
+    familia = models.OneToOneField(
+        FamiliaAtendida,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
+    tipoMoradia = models.CharField(
+        max_length=6,
+        choices=TIPO_MORADIA,
+        verbose_name='1. Qual o tipo de moradia onde a família reside?',
+        blank=False,
+        null=True,
+    )
+
+    valorMoradia = models.DecimalField(
+        max_digits=8, 
+        decimal_places=2, 
+        validators=[MinValueValidator(Decimal(0.00))], 
+        verbose_name='Em caso de financiamento ou aluguel informe o valor pago mensalmente:',
+        null=True,
+    )
+
+    moradiaLugarViolento = models.BooleanField(
+        blank=False,
+        null=True,
+    )
+
+    motivoLugarViolento = models.CharField(
+        max_length=6,
+        choices=TIPO_VIOLENCIA,
+        verbose_name='Lugar Violência',
+        blank=False,
+        null=True,
+    )
+
+    pessoasNaCasa = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(20)], 
+        verbose_name='3. Quantas pessoas vivem na casa?',
+        null=True,
+    )
+
+    pessoasMenores = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='4. Das pessoas que residem na casa, quantas são menores de 18 anos?',
+        null=True,
+    )
+
+    criancasFrequentamEscola = models.CharField(
+        max_length=6,
+        choices=CRIANCAS_NA_ESCOLA,
+        blank=False,
+        null=True,
+    )
+
+    temPessoasDoentes = models.BooleanField(
+        blank=False,
+        null=True,
+    )
+
+    qtdeDoentes = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='6.1. Se sim, quantas pessoas doentes ou com necessidades especiais?',
+        null=True,
+    )
+
+    qtdeTrabalham = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='7. Das pessoas que residem na casa, quantas trabalham e contribuem com a renda familiar?',
+        null=True,
+    )
+
+    qtdeTrabalhoFormal = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='8. Das pessoas que trabalham, quantas trabalham em empregos formais com carteira assinada?',
+        null=True,
+    )
+
+    qtdeTrabalhoAutonomo = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='9. Das pessoas que trabalham, quantas são autônomas?',
+        null=True,
+    )
+
+    qtdeTrabalhoInformal = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(20)],
+        verbose_name='10. Das pessoas que trabalham, quantas trabalham informalmente sem vínculo empregatício ou fazendo bicos?',
+        null=True,
+    )
+
+    rendaBrutaFamiliar = models.CharField(
+        max_length=6,
+        choices=RENDA_BRUTA_FAMILIAR,
+        blank=False,
+        null=True,
+    )
+
+    recebeAuxilioGoverno = models.BooleanField(
+        blank=False,
+        null=True,
+    )
+
+    maiorGrauEscolaridade = models.CharField(
+        max_length=6,
+        choices=GRAU_ESCOLARIDADE,
+        blank=False,
+        null=True,
+    )
+
+    frequentaReligiao = models.CharField(
+        max_length=6,
+        choices=RELIGIAO,
+        blank=False,
+        null=True,
+    )
+
+    respondido = models.BooleanField(
+        default=False,
+        null=False,
+    )
+
+    @receiver(post_save, sender=FamiliaAtendida)
+    def cria_questionario_familia(sender, instance, created, **kwargs):
+        if created:
+            FamiliaQuestionario.objects.get_or_create(pk=instance.pk)
+
+    def __str__(self):
+        return self.familia
 
 
 class GrupoProduto(models.Model):

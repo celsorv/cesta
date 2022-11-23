@@ -23,7 +23,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col" style="width: 60px">Cestas</th>
                 <th scope="col" style="width: 60px">Ativo</th>
-                <th scope="col" style="width: 60px" class="text-center">Ação</th>
+                <th scope="col" style="width: 90px">Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +39,10 @@
                     <td scope="col">
                         <a href="{% url 'cadastros:familia_atendida_edit' dbs.id %}" class="pr-1" target="_self"
                             title="editar {{ dbs.nome }}" role="button"><em class="fas fa-edit text-info"></em></a>
-                        <a href="{% url 'cadastros:familia_atendida_delete' dbs.id %}" target="_self"
+                        <a href="{% url 'cadastros:familia_atendida_delete' dbs.id %}" class="pr-1" target="_self"
                             title="excluir {{ dbs.nome }}" role="button"><em class="fas fa-trash text-danger"></em></a>
+                        <a href="{% url 'cadastros:familia_atendida_question' dbs.id %}" target="_self"
+                            title="questionário {{ dbs.nome }}" role="button"><em class="fas fa-question-circle text-primary"></em></a>
                     </td>
                 </tr>
             {% endfor %}

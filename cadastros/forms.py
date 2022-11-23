@@ -1,6 +1,9 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Div, Layout, Fieldset, Submit
+from crispy_forms.bootstrap import InlineRadios
 
-from pages.models import FamiliaAtendida, UnidadeOrganizacao, GrupoProduto, Produto
+from pages.models import FamiliaAtendida, FamiliaQuestionario, UnidadeOrganizacao, GrupoProduto, Produto
 
 class UnidadeOrganizacaoForm(forms.ModelForm):
 
@@ -44,6 +47,66 @@ class FamiliaAtendidaForm(forms.ModelForm):
         self.fields['bairro'].widget.attrs['aria-label'] = 'Informe o bairro do endereço'
         self.fields['telefone'].widget.attrs['aria-label'] = 'Informe os telefones de contato'
         self.fields['observacoes'].widget.attrs['aria-label'] = 'Informe observações importantes'
+
+class FamiliaQuestionarioForm(forms.ModelForm):
+
+    class Meta:
+        model = FamiliaQuestionario
+        exclude = ['familia', 'respondido']
+
+    def __init__(self, *args, **kwargs):
+        super(FamiliaQuestionarioForm, self).__init__(*args, **kwargs)
+
+        choice_yes_no = [(True, 'Sim'), (False, 'Não')]
+        self.fields['tipoMoradia'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.TIPO_MORADIA, 
+            widget=forms.RadioSelect,
+            label='1. Qual o tipo de moradia onde a família reside?',
+        )
+        self.fields['moradiaLugarViolento'] = forms.ChoiceField(
+            choices=choice_yes_no, 
+            widget=forms.RadioSelect,
+            label='2. Você considera o lugar onde mora violento?',
+        )
+        self.fields['motivoLugarViolento'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.TIPO_VIOLENCIA, 
+            widget=forms.RadioSelect,
+            label='2.1. Por quê?',
+        )
+        self.fields['criancasFrequentamEscola'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.CRIANCAS_NA_ESCOLA, 
+            widget=forms.RadioSelect,
+            label='5. As crianças frequentam a escola regularmente?',
+        )
+        self.fields['temPessoasDoentes'] = forms.ChoiceField(
+            choices=choice_yes_no, 
+            widget=forms.RadioSelect,
+            label='6. Das pessoas que residem na casa há alguma doente/ em \
+                        tratamento ou com necessidades especiais?',
+        )
+        self.fields['rendaBrutaFamiliar'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.RENDA_BRUTA_FAMILIAR, 
+            widget=forms.RadioSelect,
+            label='11. Qual a renda bruta familiar mensal?',
+        )
+        self.fields['recebeAuxilioGoverno'] = forms.ChoiceField(
+            choices=choice_yes_no, 
+            widget=forms.RadioSelect,
+            label=('12. Algum membro da família recebe algum tipo de auxílio' +
+                        'ou benefício do governo, como bolsa família, ' +
+                        'auxílio doença, entre outros?'
+                  ),
+        )
+        self.fields['maiorGrauEscolaridade'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.GRAU_ESCOLARIDADE, 
+            widget=forms.RadioSelect,
+            label='13. Qual o grau de escolaridade dos adultos que residem na casa?',
+        )
+        self.fields['frequentaReligiao'] = forms.ChoiceField(
+            choices=FamiliaQuestionario.RELIGIAO, 
+            widget=forms.RadioSelect,
+            label='14. Os membros da família frequentam alguma religião?',
+        )
 
 
 class GrupoProdutoForm(forms.ModelForm):
