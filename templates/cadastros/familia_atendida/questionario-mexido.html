@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-12 m-auto text-left">
+    <h3>Famílias: Questionário Socioeconômico</h3>
+</div>
+
+<div class="col-12 m-auto pt-4">
+
+
+    <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+
+
+
+    <form name="form" id="form" action="" method='post'>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>1. Qual o tipo de moradia onde a família reside?</label>
+            <div>
+                {% for radio in form.tipoMoradia %}
+                <label for="{{ radio.id_for_label }}">
+                    {{ radio.tag }}
+                    <span>{{ radio.choice_label }}&nbsp;&nbsp;&nbsp;</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form group">
+            <label>3. Quantas pessoas vivem na casa?</label>
+            <div>
+                {{ form.pessoasNaCasa|as_crispy_field }}
+            </div>
+        </div>
+
+
+
+         
+        <legend class="form-group">1. Qual o tipo de moradia onde a família reside?</legend>
+        <div class="form-group">
+            {% for radio in form.tipoMoradia %}
+            <label for="{{ radio.id_for_label }}">
+                {{ radio.tag }}
+                <span>{{ radio.choice_label }}&nbsp;&nbsp;&nbsp;</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        {{ form.tipoMoradia|as_crispy_field }}
+
+        <div class="form-group">
+            Em caso de financiamento ou aluguel informe o valor pago mensalmente:
+            {{ form.valorMoradia|as_crispy_field }}
+        </div>
+
+        <legend class="form-group">2. Você considera o lugar onde mora violento?</legend>
+        <div class="form-group">
+            {% for radio in form.moradiaLugarViolento %}
+            <label for="{{ radio.id_for_label }}">
+                {{ radio.tag }}
+                <span>{{ radio.choice_label }}&nbsp;&nbsp;&nbsp;</span>
+            </label>
+            {% endfor %}
+        </div>
+        <legend class="col-12">2.1. Por que?</legend>
+        <div class="col-12">
+            {% for radio in form.motivoLugarViolento %}
+            <label for="{{ radio.id_for_label }}">
+                {{ radio.tag }}
+                <span>{{ radio.choice_label }}&nbsp;&nbsp;&nbsp;</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <legend class="col-12 pt-4">3. Quantas pessoas vivem na casa?</legend>
+        <div class="col-12">
+            {{ form.pessoasNaCasa|as_crispy_field }}
+        </div>
+
+        <legend class="col-12 pt-4">4. Das pessoas que residem na casa, quantas são menores de 18 anos?</legend>
+        <div class="col-12">
+            {{ form.pessoasMenores|as_crispy_field}}
+        </div>
+
+
+        <legend class="col-12 pt-4">5. As crianças frequentam a escola regularmente?</legend>
+        <div class="col-12">{{ form.criancasFrequentamEscola|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">6. Das pessoas que residem na casa há alguma doente/ em tratamento ou com necessidades especiais?</legend>
+        <div class="col-12">{{ form.temPessoasDoentes|as_crispy_field }}</div>
+
+        <legend class="col-12">6.1. Se sim, quantas pessoas doentes ou com necessidades especiais?</legend>
+        <div class="col-12">{{ form.qtdeDoentes|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">7. Das pessoas que residem na casa, quantas trabalham e contribuem com a renda familiar?</legend>
+        <div class="col-12">{{ form.qtdeTrabalham|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">8. Das pessoas que trabalham, quantas trabalham em empregos formais com carteira assinada?</legend>
+        <div class="col-12">{{ form.qtdeTrabalhoFormal|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">9. Das pessoas que trabalham, quantas são autônomas?</legend>
+        <div class="col-12">{{ form.qtdeTrabalhoAutonomo|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">10. Das pessoas que trabalham, quantas trabalham informalmente sem vínculo empregatício ou fazendo bicos?</legend>
+        <div class="col-12">{{ form.qtdeTrabalhoInformal|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">11. Qual a renda bruta familiar mensal?</legend>
+        <div class="col-12">{{ form.rendaBrutaFamiliar|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">12. Algum membro da família recebe algum tipo de auxílio ou benefício do governo, como bolsa família, auxílio doença, entre outros?</legend>
+        <div class="col-12">{{ form.recebeAuxilioGoverno|as_crispy_field }}</div>
+        
+        <legend class="col-12 pt-4">13. Qual o grau de escolaridade dos adultos que residem na casa?</legend>
+        <div class="col-12">{{ form.maiorGrauEscolaridade|as_crispy_field }}</div>
+        
+        
+        <legend class="col-12 pt-4">14. Os membros da família frequentam alguma religião?</legend>
+        <div class="col-12">{{ form.frequentaReligiao|as_crispy_field }}</div>
+
+
+        <div class="row col-12 pt-4">
+            <button type="submit" class="btn btn-secondary">Salvar</button>
+            <a href="{% url 'cadastros:familia_atendida_list' %}" target="_self"
+                class="btn btn-secondary ml-3" role="button">Cancelar</a>
+        </div>
+
+    </form>
+</div>    
+
+{% endblock %}

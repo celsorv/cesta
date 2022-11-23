@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 
 from braces.views import GroupRequiredMixin
 
-from .forms import FamiliaAtendidaForm, UnidadeOrganizacaoForm, GrupoProdutoForm, ProdutoForm
-from pages.models import FamiliaAtendida, UnidadeOrganizacao, GrupoProduto, Produto
+from .forms import FamiliaAtendidaForm, FamiliaQuestionarioForm, UnidadeOrganizacaoForm, GrupoProdutoForm, ProdutoForm
+from pages.models import FamiliaAtendida, FamiliaQuestionario, UnidadeOrganizacao, GrupoProduto, Produto
 
 class UnidadeOrganizacaoEdit(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
@@ -61,6 +61,20 @@ class FamiliaAtendidaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('cadastros:familia_atendida_list')
     group_required = 'admin_users'
     redirect_field_name = '/'
+
+class FamiliaAtendidaQuestionario(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+
+    model = FamiliaQuestionario
+    form_class = FamiliaQuestionarioForm
+    template_name = 'cadastros/familia_atendida/questionario.html'
+    success_url = reverse_lazy('cadastros:familia_atendida_list')
+    context_object_name = 'db'
+    group_required = 'admin_users'
+    redirect_field_name = '/'
+
+    def form_valid(self, form):
+        form.instance.respondido = True
+        return super().form_valid(form)
 
 class GrupoProdutoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 

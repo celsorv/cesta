@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import FamiliaAtendidaCreate, FamiliaAtendidaDelete, FamiliaAtendidaEdit, FamiliaAtendidaList
-from .views import GrupoProdutoList, GrupoProdutoEdit, GrupoProdutoCreate, GrupoProdutoDelete
+from .views import GrupoProdutoList, GrupoProdutoEdit, GrupoProdutoCreate, GrupoProdutoDelete, FamiliaAtendidaQuestionario
 from .views import UnidadeOrganizacaoEdit, ProdutoList, ProdutoEdit, ProdutoCreate, ProdutoDelete
 
 app_name = 'cadastros'
@@ -12,6 +12,7 @@ urlpatterns = [
     path('familiaatendida/novo', FamiliaAtendidaCreate.as_view(), name='familia_atendida_create'),
     path('familiaatendida/<int:pk>/', FamiliaAtendidaEdit.as_view(), name='familia_atendida_edit'),
     path('familiaatendida/<int:pk>/delete', FamiliaAtendidaDelete.as_view(), name='familia_atendida_delete'),
+    path('familiaatendida/<int:pk>/questionario', FamiliaAtendidaQuestionario.as_view(), name='familia_atendida_question'),
     path('grupoproduto/', GrupoProdutoList.as_view(), name='grupo_produto_list'),
     path('grupoproduto/novo', GrupoProdutoCreate.as_view(), name='grupo_produto_create'),
     path('grupoproduto/<int:pk>/', GrupoProdutoEdit.as_view(), name='grupo_produto_edit'),
