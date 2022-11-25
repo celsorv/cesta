@@ -1,5 +1,3 @@
-from django.http import Http404
-
 from pages.models import UnidadeOrganizacao
 
 class UnidadeOrganizacaoService():
