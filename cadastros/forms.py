@@ -25,6 +25,7 @@ class FamiliaAtendidaForm(forms.ModelForm):
         fields = (
             'nome', 
             'ativo', 
+            'dataDesativacao',
             'qtdeCestas',
             'logradouro',
             'complemento',
@@ -41,6 +42,7 @@ class FamiliaAtendidaForm(forms.ModelForm):
         self.fields['nome'].widget.attrs['autofocus'] = 'autofocus'
         self.fields['nome'].widget.attrs['aria-label'] = 'Informe o nome da família'
         self.fields['ativo'].widget.attrs['aria-label'] = 'Indique se esta família está apta a receber cestas'
+        self.fields['dataDesativacao'].widget.attrs['aria-label'] = 'Indique a data de desligamento da família no sistema'
         self.fields['qtdeCestas'].widget.attrs['aria-label'] = 'Informe a quantidade de cestas que a família recebe'
         self.fields['logradouro'].widget.attrs['aria-label'] = 'Informe o logradouro e número do endereço'
         self.fields['complemento'].widget.attrs['aria-label'] = 'Informe o completo do endereço'

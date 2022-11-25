@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
 from datetime import date
 from decimal import Decimal
 
@@ -39,6 +40,14 @@ class FamiliaAtendida(models.Model):
     ativo = models.BooleanField(
         default=True,
         verbose_name='Família Ativa?'
+    )
+    dataDesativacao = models.DateField(
+        db_column='data_desativacao',
+        blank=True,
+        null=True,
+        default=date.today(),
+        verbose_name='Data Desativação',
+        help_text='Informe a data de desativação da família no sistema',
     )
     qtdeCestas = models.PositiveSmallIntegerField(
         db_column='qtde_cestas',
@@ -87,6 +96,22 @@ class FamiliaAtendida(models.Model):
         verbose_name='Observações',
         help_text='Informe observações importantes',
     )
+    dataCadastro = models.DateField(
+        db_column='data_cadastro',
+        verbose_name='Data Cadastro',
+        auto_now_add=True,
+    )
+
+    def clean(self):
+        if self.ativo:
+            self.dataDesativacao = None
+        elif not self.dataDesativacao:
+            raise ValidationError('Data Desativação é necessária.')
+        return super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(args, kwargs)
     
     def __str__(self):
         return self.nome

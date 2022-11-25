@@ -3,9 +3,9 @@ from django.db.models.functions import Lower, Cast
 from django.db import transaction
 from datetime import datetime, timedelta
 
-from pages.models import GrupoProduto, Produto, DoacaoAgendada, DoacaoRecebida
-from .unidadeorg_service import UnidadeOrganizacaoService as orgService
-from .familia_atendida_service import FamiliaAtendidaService
+from pages.models import GrupoProduto, DoacaoAgendada, DoacaoRecebida
+from services.unidadeorg_service import UnidadeOrganizacaoService as orgService
+from services.familia_atendida_service import FamiliaAtendidaService
 
 class DoacaoService():
 
