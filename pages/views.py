@@ -20,8 +20,8 @@ class HomePageView(TemplateView):
 
 ####
 from pages.models import DoacaoRecebida, FamiliaAtendida, FamiliaQuestionario
-from django.db.models import Sum, Q, Count
-from django.db.models.functions import ExtractMonth, ExtractYear
+from django.db.models import Sum, Q, Count 
+from django.db.models.functions import ExtractMonth, ExtractYear, Coalesce
 
 
 def query_doacaorecebida():
@@ -132,3 +132,46 @@ def renda_familiar(request):
         'legenda': 'Quantidade familias'
     }
     return render(request, 'graficos_base.html', contexto)
+
+def analise_familias(request):
+    tot_familias = FamiliaAtendida.objects.aggregate(Count('id'))['id__count']
+    tot_quest_familias = FamiliaQuestionario.objects.filter(respondido=True).aggregate(Count('familia_id'))['familia_id__count']
+    tot_membros = FamiliaQuestionario.objects.aggregate(Sum('pessoasNaCasa'))['pessoasNaCasa__sum']
+    if not tot_membros: ##temporario
+        tot_membros = tot_familias * 2 ## media
+
+    perigoso = FamiliaQuestionario.objects.filter(moradiaLugarViolento=True).aggregate(Count('familia_id'))['familia_id__count']
+    kids = FamiliaQuestionario.objects.aggregate(kids=Coalesce(Sum('pessoasMenores'), 0))['kids']
+    trab_informal = FamiliaQuestionario.objects.aggregate(trab_informal=Coalesce(Sum('qtdeTrabalhoInformal'), 0))['trab_informal']
+
+    gov_auxilio = FamiliaQuestionario.objects.aggregate(gov_auxilio = Count('recebeAuxilioGoverno'))['gov_auxilio']
+
+    from django.db import connection
+    cursor = connection.cursor()
+    cursor.execute("select (maiorGrauEscolaridade), count(maiorGrauEscolaridade) from pages_familiaquestionario pf where  maiorGrauEscolaridade is not null group by maiorGrauEscolaridade")
+    escola = dict(cursor.fetchall())
+
+    fun_in = escola.get('FUN_IN', 0) / tot_familias * 100
+    med_in = escola.get('MED_IN', 0) / tot_familias * 100
+    sup_in = escola.get('SUP_IN', 0) / tot_familias * 100
+    fun_cp = escola.get('FUN_CP', 0) / tot_familias * 100
+    med_cp = escola.get('MED_CP', 0) / tot_familias * 100
+    sup_cp = escola.get('SUP_CP', 0) / tot_familias * 100
+
+    contexto = {
+        'tot_familias': tot_familias,
+        'tot_quest_familias': tot_quest_familias,
+        'tot_membros': tot_membros,
+        'perigoso': perigoso / tot_familias * 100,
+        'kids': kids / tot_familias * 100,
+        'trab_informal': trab_informal / tot_membros * 100,
+        'fun_in' : fun_in,
+        'med_in' : med_in,
+        'sup_in' : sup_in,
+        'fun_cp': fun_cp,
+        'med_cp': med_cp,
+        'sup_cp': sup_cp,
+        'gov_auxilio': gov_auxilio,
+    }
+    return render(request, 'relatorio_analise_familias.html', contexto)
+    
