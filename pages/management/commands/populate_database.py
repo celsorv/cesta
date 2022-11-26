@@ -79,18 +79,17 @@ class Command(BaseCommand):
         faker = Faker('pt_BR')
 
         end_date = datetime.date.today()
-        start_date = end_date.replace(day=1, month=9).toordinal()
+        start_date = end_date.replace(day=1, month=7).toordinal()
         end_date = end_date.toordinal()
 
         random_day = datetime.date.fromordinal(random.randint(start_date, end_date))
-        print(random_day)
 
         familia = FamiliaAtendida(
             id = index,
             dataCadastro=str(random_day),
             nome = (f'Familia {faker.name()}'),
             ativo=True,
-            qtdeCestas = random.randint(1, 10),
+            qtdeCestas = random.randint(1, 4),
             unidadeOrganizacao = igreja
         )
         return familia
@@ -127,9 +126,9 @@ class Command(BaseCommand):
 
         ## must be this order to generate fake data
         ## users -> agendadas -> recebidas
-        # handler_users()
-        # handler_doacoes_agendadas()
-        # handler_doacao_recebida()
+        handler_users()
+        handler_doacoes_agendadas()
+        handler_doacao_recebida()
 
         handler_familia_atendida()
 
