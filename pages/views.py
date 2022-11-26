@@ -19,8 +19,9 @@ class HomePageView(TemplateView):
 
 
 ####
-from pages.models import DoacaoRecebida
-from django.db.models.aggregates import Sum
+from pages.models import DoacaoRecebida, FamiliaAtendida
+from django.db.models import Sum, Q
+from django.db.models.functions import ExtractMonth, ExtractYear
 
 
 def query_doacaorecebida():
@@ -48,3 +49,40 @@ def produtos_mais_doados(request):
         'legenda': 'Produtos mais doados'
     }
     return render(request, 'produtos_grafico.html', contexto)
+
+
+def relatorios(request):
+    return render(request, 'relatorios.html')
+
+
+def cestas_doadas(request):
+    dataInicial = '2022-01-01'
+    dataFinal = '2023-01-01'
+
+    queryset = (FamiliaAtendida.objects.filter(
+            Q(ativo=True), #| Q(dataDesativacao__gte = dataFinal), 
+            dataCadastro__gte = dataInicial and Q(dataCadastro__lt = dataFinal)
+        )
+        .annotate(year=ExtractYear('dataCadastro'))
+        .annotate(month=ExtractMonth('dataCadastro'))
+        .values('year', 'month')
+        .annotate(
+            total_cestas=Sum('qtdeCestas')
+        )
+        .order_by('year', 'month')
+    )
+    labels = []
+    data = []
+
+    for cesta in queryset:
+        labels.append(f"{cesta['year']}-{cesta['month']}")
+        data.append(cesta['total_cestas'])
+    
+    contexto = {
+        'titulo': 'Cestas doadas em 2022',
+        'labels': labels,
+        'data': data,
+        'chart_type': 'bar',
+        'legenda': 'Cestas doadas'
+    }
+    return render(request, 'graficos_base.html', contexto)

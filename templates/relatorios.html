@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Relatórios</h2>
+
+<ul class="relatorios_list" style="margin-top: 30px">
+    <li><a style="color: black" href="{% url 'pages:produtos_grafico' %}">Produtos mais doados</a></li>
+    <li><a style="color: black" href="{% url 'pages:cestas_doadas' %}">Cestas Doadas</a></li>
+</ul>
+
+{% endblock %}

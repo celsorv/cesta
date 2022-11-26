@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
-from pages.models import DoacaoRecebida, UnidadeOrganizacao, Produto, DoacaoAgendada
+from pages.models import DoacaoRecebida, UnidadeOrganizacao, Produto, DoacaoAgendada, FamiliaAtendida
 from users.models import User
 import random
 import datetime
@@ -75,6 +75,25 @@ class Command(BaseCommand):
         )
         return user
 
+    def generate_fake_familia_atendida(self, igreja, index):
+        faker = Faker('pt_BR')
+
+        end_date = datetime.date.today()
+        start_date = end_date.replace(day=1, month=9).toordinal()
+        end_date = end_date.toordinal()
+
+        random_day = datetime.date.fromordinal(random.randint(start_date, end_date))
+        print(random_day)
+
+        familia = FamiliaAtendida(
+            id = index,
+            dataCadastro=str(random_day),
+            nome = (f'Familia {faker.name()}'),
+            ativo=True,
+            qtdeCestas = random.randint(1, 10),
+            unidadeOrganizacao = igreja
+        )
+        return familia
 
     def handle(self, *args, **kwargs):
         '''
@@ -101,10 +120,16 @@ class Command(BaseCommand):
 
             data = [self.generate_fake_doacoes_recebidas(produtos, igreja, users_agendados_pendentes) for i in range(random_quantity)]
             DoacaoRecebida.objects.bulk_create(data, ignore_conflicts=True)
+        
+        def handler_familia_atendida():
+            data = [self.generate_fake_familia_atendida(igreja, index) for index in range(30)]
+            FamiliaAtendida.objects.bulk_create(data, ignore_conflicts=True)
 
         ## must be this order to generate fake data
         ## users -> agendadas -> recebidas
-        handler_users()
-        handler_doacoes_agendadas()
-        handler_doacao_recebida()
+        # handler_users()
+        # handler_doacoes_agendadas()
+        # handler_doacao_recebida()
+
+        handler_familia_atendida()
 

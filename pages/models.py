@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 from datetime import date
 from decimal import Decimal
+from django.utils import timezone
 
 class UnidadeOrganizacao(models.Model):
     
@@ -45,7 +46,7 @@ class FamiliaAtendida(models.Model):
         db_column='data_desativacao',
         blank=True,
         null=True,
-        default=date.today(),
+        default=timezone.now,
         verbose_name='Data Desativação',
         help_text='Informe a data de desativação da família no sistema',
     )
@@ -99,7 +100,7 @@ class FamiliaAtendida(models.Model):
     dataCadastro = models.DateField(
         db_column='data_cadastro',
         verbose_name='Data Cadastro',
-        auto_now_add=True,
+        auto_now_add=False,
     )
 
     def clean(self):
