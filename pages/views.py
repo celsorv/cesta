@@ -19,8 +19,8 @@ class HomePageView(TemplateView):
 
 
 ####
-from pages.models import DoacaoRecebida, FamiliaAtendida
-from django.db.models import Sum, Q
+from pages.models import DoacaoRecebida, FamiliaAtendida, FamiliaQuestionario
+from django.db.models import Sum, Q, Count
 from django.db.models.functions import ExtractMonth, ExtractYear
 
 
@@ -84,5 +84,51 @@ def cestas_doadas(request):
         'data': data,
         'chart_type': 'bar',
         'legenda': 'Cestas doadas'
+    }
+    return render(request, 'graficos_base.html', contexto)
+
+
+def renda_familiar(request):
+    queryset = (FamiliaQuestionario.objects
+    .filter(Q(rendaBrutaFamiliar__isnull=False) )
+    .values('rendaBrutaFamiliar')
+    .annotate(
+            qtd_familias=Count('familia_id')
+        )
+    .order_by('rendaBrutaFamiliar')
+    )
+
+    labels = []
+    data = []
+    labels_meaning = {
+        'MENOS1': 0, 
+        'EXATO1': 1, 
+        'EXATO2': 2, 
+        'EXATO3': 3, 
+        'ACIMA3': 4, 
+    }
+    labels_meaning2 = [
+        'Até um salário mínimo',
+        'Um salário mínimo',
+        'Dois salários mínimos',
+        'Três salários mínimos',
+        'Acima de três salários mínimos']
+
+    for item in queryset:
+        item['rendaBrutaFamiliar'] = labels_meaning[item['rendaBrutaFamiliar']]
+
+    queryset = list(queryset)
+    queryset.sort(key=lambda item: item.get("rendaBrutaFamiliar"))
+
+    for renda in queryset:
+        labels.append(labels_meaning2[renda['rendaBrutaFamiliar']])
+        data.append(renda['qtd_familias'])
+    
+    contexto = {
+        'titulo': 'Renda Familiar',
+        'labels': labels,
+        'data': data,
+        'chart_type': 'bar',
+        'legenda': 'Quantidade familias'
     }
     return render(request, 'graficos_base.html', contexto)

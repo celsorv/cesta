@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
-from pages.models import DoacaoRecebida, UnidadeOrganizacao, Produto, DoacaoAgendada, FamiliaAtendida
+from pages.models import DoacaoRecebida, UnidadeOrganizacao, Produto, DoacaoAgendada, FamiliaAtendida, FamiliaQuestionario
 from users.models import User
 import random
 import datetime
@@ -92,7 +92,25 @@ class Command(BaseCommand):
             qtdeCestas = random.randint(1, 4),
             unidadeOrganizacao = igreja
         )
+
         return familia
+
+    def questionario(self, index):
+        respondido = bool(random.randint(0,1))
+        renda = None
+        if respondido:
+            renda = random.choice([
+                "MENOS1",
+                "EXATO1",
+                "EXATO2",
+            ])
+
+        aa = FamiliaQuestionario(
+            familia = FamiliaAtendida.objects.get(id=index),
+            respondido = respondido,
+            rendaBrutaFamiliar = renda
+        )
+        return aa
 
     def handle(self, *args, **kwargs):
         '''
@@ -121,8 +139,11 @@ class Command(BaseCommand):
             DoacaoRecebida.objects.bulk_create(data, ignore_conflicts=True)
         
         def handler_familia_atendida():
-            data = [self.generate_fake_familia_atendida(igreja, index) for index in range(30)]
-            FamiliaAtendida.objects.bulk_create(data, ignore_conflicts=True)
+            familia = [self.generate_fake_familia_atendida(igreja, index) for index in range(30)]
+            FamiliaAtendida.objects.bulk_create(familia, ignore_conflicts=True)
+
+            familia_questionario = [self.questionario(index) for index in range(30)]
+            FamiliaQuestionario.objects.bulk_create(familia_questionario, ignore_conflicts=True)
 
         ## must be this order to generate fake data
         ## users -> agendadas -> recebidas

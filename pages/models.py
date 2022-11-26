@@ -46,7 +46,6 @@ class FamiliaAtendida(models.Model):
         db_column='data_desativacao',
         blank=True,
         null=True,
-        default=timezone.now,
         verbose_name='Data Desativação',
         help_text='Informe a data de desativação da família no sistema',
     )
@@ -101,6 +100,7 @@ class FamiliaAtendida(models.Model):
         db_column='data_cadastro',
         verbose_name='Data Cadastro',
         auto_now_add=False,
+        default=timezone.now,
     )
 
     def clean(self):
