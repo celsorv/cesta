@@ -97,18 +97,46 @@ class Command(BaseCommand):
 
     def questionario(self, index):
         respondido = bool(random.randint(0,1))
-        renda = None
-        if respondido:
-            renda = random.choice([
-                "MENOS1",
-                "EXATO1",
-                "EXATO2",
-            ])
+        if not respondido:
+            aa = FamiliaQuestionario(
+                familia = FamiliaAtendida.objects.get(id=index),
+                respondido = respondido,
+            )
+            return aa
+
+            
+        renda = random.choice([
+            "MENOS1",
+            "EXATO1",
+            "EXATO2",
+        ])
+
+        escola_grau = random.choice([
+        'FUN_IN', 
+        'FUN_CP', 
+        'MED_IN', 
+        'MED_CP', 
+        'SUP_IN', 
+        # 'SUP_CP', 
+        ])
+        pessoasNaCasa = random.randint(2, 7)
+        pessoasMenores = 0
+        escola = False
+        if pessoasNaCasa > 2:
+            pessoasMenores = random.randint(0, pessoasNaCasa - 2)
+
 
         aa = FamiliaQuestionario(
             familia = FamiliaAtendida.objects.get(id=index),
             respondido = respondido,
-            rendaBrutaFamiliar = renda
+            rendaBrutaFamiliar = renda,
+            pessoasNaCasa = pessoasNaCasa,
+            pessoasMenores = pessoasMenores,
+            criancasFrequentamEscola = bool(random.randint(0,1)) if bool(pessoasMenores) else False,
+            moradiaLugarViolento = bool(random.randint(0,1)),
+            recebeAuxilioGoverno = bool(random.randint(0,1)),
+            qtdeTrabalhoInformal = random.randint(0, pessoasNaCasa - pessoasMenores) + 1,
+            maiorGrauEscolaridade = escola_grau
         )
         return aa
 
@@ -117,7 +145,7 @@ class Command(BaseCommand):
         Responsavel por executar o comando em si "python manage.py populate_database"
         '''
 
-        random_quantity = random.randint(50, 1500)
+        random_quantity = random.randint(50, 150)
         print('gerando registros: ', random_quantity)
         igreja = UnidadeOrganizacao.objects.get(nome="Igreja")
         produtos = list(Produto.objects.all())
