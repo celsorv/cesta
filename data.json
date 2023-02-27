@@ -5,32 +5,28 @@
         "fields": {
             "nome": "Igreja",
             "ativo": true,
-            "metaQtdeCestas": 10,
             "diasEsperaAgendadas": 10
         }
     },
     {
-        "model": "pages.grupoproduto",
-        "pk": 1,
+        "model": "users.user",
+        "pk": 100,
         "fields": {
-            "unidadeOrganizacao": 1,
-            "descricao": "Arroz",
-            "unidadeEmbalagem": "KG",
-            "qtdeNaEmbalagem": "5.000",
-            "unidadesNaCesta": 2,
-            "compoeCesta": true,
-            "diasValidadeMinima": 10
-        }
-    },
-    {
-        "model": "pages.produto",
-        "pk": 1,
-        "fields": {
-            "unidadeOrganizacao": 1,
-            "descricao": "Arroz 5kg",
-            "grupoProduto": 1,
-            "qtdeNaEmbalagem": "5.000",
-            "aceitaDoacao": true
+            "password": "pbkdf2_sha256$320000$0WBT7ejFijUAPThiZPFxBC$aYcQmXyf/JR8UKJTFck/f6GmaZlCdIqu2dgoJ6ukoDA=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@admin.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-06-13T03:38:39Z",
+            "administrador": true,
+            "groups": [
+                101
+            ],
+            "user_permissions": []
         }
     },
     {
@@ -87,6 +83,535 @@
         "fields": {
             "name": "common_users",
             "permissions": []
+        }
+    },
+
+    {
+        "model": "pages.grupoproduto",
+        "pk": 1,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Arroz",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 10,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 2,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Feijão",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 4,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 3,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Manteiga",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 1,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 4,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Molho de Tomate",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 1.8,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 5,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Maionese",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 1.8,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 6,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Oleo de Soja",
+            "unidadeEmbalagem": "L",
+            "unidadesNaCesta": 1.8,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 7,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Sal Refinado",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 1.8,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 8,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Açucar",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 9,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Vinagre",
+            "unidadeEmbalagem": "L",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 10,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Macarrão",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 11,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Leite",
+            "unidadeEmbalagem": "L",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 12,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Leite em Pó",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 13,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Farinha de Trigo",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 14,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Café",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 15,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Biscoito",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 16,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Carne seca",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 17,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Sardinha em conserva",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 18,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Ervilha em conserva",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 19,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Achocolatado em pó",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 20,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Azeitonas",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 21,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Gelatinas",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    {
+        "model": "pages.grupoproduto",
+        "pk": 22,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Goiabadas",
+            "unidadeEmbalagem": "KG",
+            "unidadesNaCesta": 2,
+            "compoeCesta": true,
+            "diasValidadeMinima": 10
+        }
+    },
+    
+    {
+        "model": "pages.produto",
+        "pk": 1,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Arroz KG",
+            "grupoProduto": 1,
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 2,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Feijão KG",
+            "grupoProduto": 2,
+            "qtdeNaEmbalagem": "4",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 3,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Manteiga",
+            "grupoProduto": 3,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 4,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Molho de Tomate",
+            "grupoProduto": 4,
+            "qtdeNaEmbalagem": "1.8",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 5,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Maionese",
+            "grupoProduto": 5,
+            "qtdeNaEmbalagem": "2",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 6,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Oleo de Soja",
+            "grupoProduto": 6,
+            "qtdeNaEmbalagem": "1.8",
+            "aceitaDoacao": true,
+            "tipo_unitario": "L"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 7,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Sal Refinado",
+            "grupoProduto": 7,
+            "qtdeNaEmbalagem": "3",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 8,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Açucar",
+            "grupoProduto": 8,
+            "qtdeNaEmbalagem": "1.8",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 9,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Vinagre",
+            "grupoProduto": 9,
+            "qtdeNaEmbalagem": "1.8",
+            "aceitaDoacao": true,
+            "tipo_unitario": "L"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 10,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Macarrão",
+            "grupoProduto": 10,
+            "qtdeNaEmbalagem": "1.8",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 11,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Leite",
+            "grupoProduto": 11,
+            "qtdeNaEmbalagem": "5",
+            "aceitaDoacao": true,
+            "tipo_unitario": "L"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 12,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Leite em Pó",
+            "grupoProduto": 12,
+            "qtdeNaEmbalagem": "2",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 13,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Farinha de Trigo",
+            "grupoProduto": 13,
+            "qtdeNaEmbalagem": "2",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 14,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Café",
+            "grupoProduto": 14,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 15,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Biscoito",
+            "grupoProduto": 15,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 16,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Carne seca",
+            "grupoProduto": 16,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 17,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Sardinha em conserva",
+            "grupoProduto": 17,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 18,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Ervilha em conserva",
+            "grupoProduto": 18,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 19,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Achocolatado em pó",
+            "grupoProduto": 19,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 20,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Azeitonas",
+            "grupoProduto": 20,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 21,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Gelatinas",
+            "grupoProduto": 21,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
+        }
+    },
+    {
+        "model": "pages.produto",
+        "pk": 22,
+        "fields": {
+            "unidadeOrganizacao": 1,
+            "descricao": "Goiabada",
+            "grupoProduto": 22,
+            "qtdeNaEmbalagem": "1",
+            "aceitaDoacao": true,
+            "tipo_unitario": "KG"
         }
     }
 ]

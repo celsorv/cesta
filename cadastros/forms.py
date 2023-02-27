@@ -141,6 +141,7 @@ class ProdutoForm(forms.ModelForm):
         fields = (
             'descricao',
             'grupoProduto',
+            'tipo_unitario',
             'qtdeNaEmbalagem',
             'aceitaDoacao', 
         )
@@ -149,6 +150,7 @@ class ProdutoForm(forms.ModelForm):
         super(ProdutoForm, self).__init__(*args, **kwargs)
         self.fields['descricao'].widget.attrs['autofocus'] = 'autofocus'
         self.fields['descricao'].widget.attrs['aria-label'] = 'Informe a descrição do produto'
+        self.fields['tipo_unitario'].widget.attrs['aria-label'] = 'Informe o tipo unitario'
         self.fields['grupoProduto'].widget.attrs['aria-label'] = 'Selecione o grupo do produto'
         self.fields['qtdeNaEmbalagem'].widget.attrs['aria-label'] = 'Informe a quantidade na embalagem'
         self.fields['aceitaDoacao'].widget.attrs['aria-label'] = 'Indique se este produto está sendo aceito como doação'

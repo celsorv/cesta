@@ -1,0 +1,26 @@
+version: '2.2'
+services:
+  web:
+    build: .
+    environment:
+      MYENV: EXAMPLE
+    volumes:
+      - .:/code
+  web_migrate:
+    extends:
+      service: web
+    command: python manage.py migrate
+  web_create_adm:
+    extends:
+      service: web
+    command: python manage.py loaddata data.json
+  web_populate_databse:
+    extends:
+      service: web
+    command: python manage.py populate_database
+  web_run:
+    extends:
+      service: web
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"

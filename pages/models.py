@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 from datetime import date
 from decimal import Decimal
+from django.utils import timezone
 
 class UnidadeOrganizacao(models.Model):
     
@@ -45,7 +46,6 @@ class FamiliaAtendida(models.Model):
         db_column='data_desativacao',
         blank=True,
         null=True,
-        default=date.today(),
         verbose_name='Data Desativação',
         help_text='Informe a data de desativação da família no sistema',
     )
@@ -99,7 +99,8 @@ class FamiliaAtendida(models.Model):
     dataCadastro = models.DateField(
         db_column='data_cadastro',
         verbose_name='Data Cadastro',
-        auto_now_add=True,
+        auto_now_add=False,
+        default=timezone.now,
     )
 
     def clean(self):
@@ -295,14 +296,10 @@ class FamiliaQuestionario(models.Model):
 
 class GrupoProduto(models.Model):
 
-    UNIDADE_CHOICES = (
-        ('KG', 'Quilograma (kg)'),
-        ('GR', 'Grama (g)'),
-        ('MG', 'Miligrama (mg)'),
-        ('LTR', 'Litro (l)'),
-        ('ML', 'Mililitro (ml)'),
-        ('PCT', 'Pacote (pct)'),
-        ('UN', 'Unidade (und)'),
+    TIPOS_UNITARIOS = (
+        ('UN', 'Unitario'),
+        ('KG', 'KiloGrama'),
+        ('L', 'Litro'),
     )
 
     unidadeOrganizacao = models.ForeignKey(
@@ -319,27 +316,21 @@ class GrupoProduto(models.Model):
     )
     unidadeEmbalagem = models.CharField(
         max_length=5, 
-        choices=UNIDADE_CHOICES, 
+        choices=TIPOS_UNITARIOS, 
         blank=False, 
         null=False, 
         db_column='unidade_embalagem', 
         verbose_name='Unidade Embalagem',
         help_text='Informe a unidade de embalagem do grupo',
     )
-    qtdeNaEmbalagem = models.DecimalField(
+    unidadesNaCesta = models.DecimalField(
         max_digits=8, 
         decimal_places=3, 
-        db_column='qtde_na_embalagem', 
-        default=1, 
-        validators=[MinValueValidator(Decimal(0.001))], 
-        verbose_name='Qtde na Embalagem',
-        help_text='Informe a quantidade na embalagem',
-    )
-    unidadesNaCesta = models.PositiveSmallIntegerField(
         db_column='unidades_na_cesta', 
         default=1, 
         null=False, 
-        validators=[MinValueValidator(1)],
+        blank=False,
+        validators=[MinValueValidator(Decimal(0.001))],
         verbose_name='Unidades na Cesta',
         help_text='Informe a quantidade que vai na cesta',
     )
@@ -355,6 +346,15 @@ class GrupoProduto(models.Model):
         validators=[MinValueValidator(1)],
         verbose_name='Validade Mínima',
         help_text='Informe em dias a validade mínima para cesta',
+    )
+    qtdeNaEmbalagem = models.DecimalField(
+        max_digits=8, 
+        decimal_places=3, 
+        db_column='qtde_na_embalagem', 
+        default=1, 
+        validators=[MinValueValidator(Decimal(0.001))], 
+        verbose_name='Qtde na Embalagem',
+        help_text='Informe a quantidade na embalagem',
     )
 
     def __str__(self):
@@ -393,6 +393,19 @@ class Produto(models.Model):
         db_column='aceita_doacao', 
         default=True, 
         verbose_name='Aceita Doação?',
+    )
+    TIPOS_UNITARIOS = (
+        ('UN', 'Unitario'),
+        ('KG', 'KiloGrama'),
+        ('L', 'Litro'),
+    )
+    tipo_unitario = models.CharField(
+        max_length=5,
+        choices=TIPOS_UNITARIOS,
+        blank=False,
+        null=False,
+        default=TIPOS_UNITARIOS[0][0],
+        verbose_name='TipoUnitario'
     )
 
     def __str__(self):
